@@ -1,0 +1,4 @@
+dependencies:
+  - pip:
+      - pyFabricOps==0.5.1
+      - semantic-link-labs==0.13.2
