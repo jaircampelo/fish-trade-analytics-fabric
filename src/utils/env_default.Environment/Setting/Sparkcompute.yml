@@ -1,13 +1,19 @@
 enable_native_execution_engine: false
 instance_pool_id: 8e6fe5d4-5256-4c44-8c8a-d56bd804c455
-driver_cores: 8
-driver_memory: 56g
-executor_cores: 8
-executor_memory: 56g
+live_pool:
+  state: Disabled
+  max_cluster_to_hydrate_per_activation: 1
+  schedule_state: Disabled
+  deactivate_on_idle_in_minutes: 20
+  reactivate_interval_in_minutes: 30
+driver_cores: 4
+driver_memory: 28g
+executor_cores: 4
+executor_memory: 28g
 dynamic_executor_allocation:
   enabled: true
   min_executors: 1
-  max_executors: 15
+  max_executors: 1
 spark_conf:
   spark.sql.caseSensitive: True
   spark.native.enabled: True
