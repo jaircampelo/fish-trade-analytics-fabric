@@ -44,19 +44,19 @@ import notebookutils
 # CELL ********************
 
 # Fabric
-lakehouse_name = 'lh_fish_trade'
-lakehouses = notebookutils.lakehouse.list()
-lakehouse = next((item for item in lakehouses if item.get('displayName') == lakehouse_name), '')
-lakehouse_path = lakehouse.get('properties').get('abfsPath')
-landing_files_path = f'{lakehouse_path}/Files/Landing'
+lakehouse_name          = 'lh_fish_trade'
+lakehouses              = notebookutils.lakehouse.list()
+lakehouse               = next((item for item in lakehouses if item.get('displayName') == lakehouse_name), '')
+lakehouse_path          = lakehouse.get('properties').get('abfsPath')
+landing_files_path      = f'{lakehouse_path}/Files/Landing'
 landing_meta_table_path = f'{lakehouse_path}/Tables/metadata/landing_meta_table'
-key_vault = "https://jaircampelo-kv.vault.azure.net/"
+key_vault               = "https://jaircampelo-kv.vault.azure.net/"
 
 # API
-BASE_COMEXSTAT_URL = 'https://api-comexstat.mdic.gov.br'
-BASE_CPI_URL = 'https://api.bls.gov/publicAPI/v2/timeseries/data/'
-start_year = 2006
-final_year = date.today().year
+BASE_COMEXSTAT_URL      = 'https://api-comexstat.mdic.gov.br'
+BASE_CPI_URL            = 'https://api.bls.gov/publicAPI/v2/timeseries/data/'
+start_year              = 2006
+final_year              = date.today().year
 
 print(f'Files path: {landing_files_path}')
 print(f'Metatable path: {landing_meta_table_path}')
