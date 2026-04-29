@@ -61,7 +61,7 @@ notebooks = [item for item in items if item.endswith(".Notebook")]
 if len(notebooks) > 0:
     logger.info(f"Found {len(notebooks)} notebooks to process for lakehouse switching")
 
-    target_variables = ["workspace_id", "lake_bronze_id", "lake_silver_id", "lake_gold_id"]
+    target_variables = ["workspace_id", "lakehouse_id"]
 
     replacements = {}
 
@@ -87,8 +87,8 @@ semantic_models = [item for item in items if item.endswith(".SemanticModel")]
 if len(semantic_models) > 0:
     logger.info(f"Found {len(semantic_models)} semantic models to process for parameter switching")
 
-    target_variables = ["workspace_eng_id", "lake_gold_id", "lake_gold_sql_endpoint_connection_string", 
-                        "lake_gold_sql_endpoint_id", "parameter_server", "parameter_database"]
+    target_variables = ["workspace_id", "lakehouse_id", "lakehouse_sql_endpoint_connection_string", 
+                        "lakehouse_sql_endpoint_id", "parameter_server", "parameter_database"]
 
     replacements = {}
 
