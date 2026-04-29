@@ -31,7 +31,9 @@ variables:
 - group: FAB_CREDENTIALS
 
 pool:
-  vmImage: 'windows-latest'
+  name: ado-pool
+  demands:
+  - ImageOverride -equals windows-latest
 
 steps:
 - checkout: self
