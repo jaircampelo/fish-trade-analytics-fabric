@@ -6,8 +6,31 @@
 # META   "kernel_info": {
 # META     "name": "synapse_pyspark"
 # META   },
-# META   "dependencies": {}
+# META   "dependencies": {
+# META     "environment": {
+# META       "environmentId": "48c95fdf-3d2e-a5a4-4c65-65bbf007c394",
+# META       "workspaceId": "00000000-0000-0000-0000-000000000000"
+# META     }
+# META   }
 # META }
+
+# MARKDOWN ********************
+
+# # Brazilian Fish Trade Balance Analysis — Landing to Bronze
+# 
+# ㅤ
+# 
+# > ㅤ\
+# > This project uses the **ComexStat API** from Brazil's Ministry of Development, Industry, Trade and Services (MDIC), which provides data on Brazilian foreign trade.\
+# > ㅤ\
+# > Raw `.parquet` files stored in the Landing zone are loaded into the **Bronze** layer of the Lakehouse as Delta tables, preserving the original data while adding control columns.\
+# > ㅤ
+# 
+# ㅤ
+# 
+# **Notebook:** nb_landing_to_bronze.ipynb
+# 
+# **Description:** This Notebook is responsible for loading `.parquet` files from the Landing zone into the **Bronze** layer of the `lh_fish_trade` Lakehouse, creating or updating the Delta tables `bronze_trades`, `bronze_cities`, `bronze_countries`, `bronze_cpi`, and `bronze_uf`. Each load's metadata is registered in the `bronze_meta_table`.
 
 # MARKDOWN ********************
 
@@ -44,7 +67,7 @@ if not lakehouse:
 
 lakehouse_path          = lakehouse.get('properties').get('abfsPath')
 landing_files_path      = f'{lakehouse_path}/Files/Landing'
-landing_meta_table_path = f'{lakehouse_path}/Tables/metadata/landing_meta_table' # Track what was copied from SIM to Landing
+landing_meta_table_path = f'{lakehouse_path}/Tables/metadata/landing_meta_table'
 bronze_meta_table_path  = f'{lakehouse_path}/Tables/metadata/bronze_meta_table'
 bronze_table_path       = f'{lakehouse_path}/Tables/bronze' # Data as-is
 
@@ -120,7 +143,7 @@ bronze_meta_schema = StructType([
     StructField('flow',         StringType(),       False),
     StructField('date_from',    DateType(),         False),
     StructField('date_to',      DateType(),         False),
-    StructField('source_path',  StringType(),       False),
+    StructField('file_path',    StringType(),       False),
     StructField('loaded_at',    TimestampType(),    True),
 ])
 
@@ -183,7 +206,7 @@ df_bronze_meta = spark.read.format('delta').load(bronze_meta_table_path)
 
 # CELL ********************
 
-# Calculate latest date_to by flow (import/export) at bronze_meta_table
+# Identify candidate rows for ingestion (newers or updated)
 df_bronze_latest_date_to = df_bronze_meta.groupBy('flow').agg(
     F.max(F.col('date_to')).alias('max_date_to')
 )
@@ -287,7 +310,7 @@ else:
             F.col('flow'),
             F.col('date_from'),
             F.col('date_to'),
-            F.col('target_path').alias('source_path')
+            F.col('target_path').alias('file_path')
         )
         .withColumn('loaded_at', F.lit(loaded_at))
     )

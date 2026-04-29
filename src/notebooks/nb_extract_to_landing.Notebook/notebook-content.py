@@ -16,6 +16,26 @@
 
 # MARKDOWN ********************
 
+# # Brazilian Fish Trade Balance Analysis — Extraction to Landing
+# 
+# ㅤ
+# 
+# > ㅤ\
+# > This project uses the **ComexStat API** from Brazil's Ministry of Development, Industry, Trade and Services (MDIC), which provides data on Brazilian foreign trade.\
+# > ㅤ\
+# > The dataset consists of municipal-level records of **fish import and export** (SH4 codes `0301`–`0308`), extracted via `POST` requests and stored as `.parquet` files in the Lakehouse Landing zone.\
+# > ㅤ\
+# > Additionally, **CPI index** data is extracted from the U.S. Bureau of Labor Statistics (BLS) API, used to deflate FOB values.\
+# > ㅤ
+# 
+# ㅤ
+# 
+# **Notebook:** nb_extract_to_landing.ipynb
+# 
+# **Description:** This Notebook is responsible for extracting fish trade data from the **ComexStat API** and U.S. inflation data from the **BLS API**, storing `.parquet` files in the Landing zone of the `lh_fish_trade` Lakehouse. Each extraction's metadata is registered in the `landing_meta_table`.
+
+# MARKDOWN ********************
+
 # ## Libs
 
 # CELL ********************
