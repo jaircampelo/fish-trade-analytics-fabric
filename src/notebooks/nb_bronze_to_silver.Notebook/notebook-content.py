@@ -188,7 +188,7 @@ for table_name, schema in silver_schemas.items():
 
 # MARKDOWN ********************
 
-# ## Read bronze tables ans silver_meta_table
+# ## Read bronze tables and silver_meta_table
 
 # CELL ********************
 
@@ -204,13 +204,13 @@ for table_name in bronze_tables:
     else:
         dfs[table_name] = spark.read.format('delta').load(f'{meta_table_path}/{table_name}')
 
-df_bronze_cities = dfs['bronze_cities']
-df_bronze_countries = dfs['bronze_countries']
-df_bronze_cpi = dfs['bronze_cpi']
-df_bronze_uf = dfs['bronze_uf']
-df_bronze_trades = dfs['bronze_trades']
-df_bronze_meta_table = dfs['bronze_meta_table']
-df_silver_meta_table = dfs['silver_meta_table']
+df_bronze_cities        = dfs['bronze_cities']
+df_bronze_countries     = dfs['bronze_countries']
+df_bronze_cpi           = dfs['bronze_cpi']
+df_bronze_uf            = dfs['bronze_uf']
+df_bronze_trades        = dfs['bronze_trades']
+df_bronze_meta_table    = dfs['bronze_meta_table']
+df_silver_meta_table    = dfs['silver_meta_table']
 
 # METADATA ********************
 
@@ -254,17 +254,6 @@ df_regions = spark.createDataFrame([
     ('RS', 'Sul'),
     ('SC', 'Sul'),
 ], ['uf', 'regiao'])
-
-df_categories = spark.createDataFrame([
-    ('0301', 'Peixes vivos', 'Peixes vivos'),
-    ('0302', 'Peixes frescos ou refrigerados', 'Peixes frescos ou refrigerados exceto filés'),
-    ('0303', 'Peixes congelados', 'Peixes congelados exceto filés'),
-    ('0304', 'Filés de peixes', 'Filés de peixes e outra carne de peixes (mesmo picada), frescos, refrigerados ou congelados'),
-    ('0305', 'Peixes secos, salgados ou em salmoura', 'Peixes secos, salgados ou em salmoura, defumados, mesmo cozidos antes ou durante a defumação e farinhas, pós e pellets, de peixe, próprios para alimentação humana'),
-    ('0306', 'Crustáceos', 'Crustáceos, mesmo sem casca, vivos, frescos, refrigerados, congelados, secos, salgados ou em salmoura, com casca, cozidos em água ou vapor, mesmo refrigerados, congelados, secos, salgados ou em salmoura e farinhas, pó e pellets de crustáceos'),
-    ('0307', 'Moluscos', 'Moluscos, com ou sem concha, vivos, frescos, refrigerados, congelados, secos, salgados ou em salmoura, invertebrados aquáticos, exceto crustáceos e moluscos, vivos, frescos, refrigerados, congelados, secos, salgados ou em salmoura e farinhas, pó e pellets'),
-    ('0308', 'Invertebrados aquáticos', 'Invertebrados aquáticos, exceto crustáceos e moluscos, vivos'),
-], ['categoria_id', 'categoria_nome', 'categoria_descricao'])
 
 # METADATA ********************
 
