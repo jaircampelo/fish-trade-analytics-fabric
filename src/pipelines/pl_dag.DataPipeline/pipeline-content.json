@@ -1,0 +1,142 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "extract_to_landing",
+        "type": "TridentNotebook",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.00:10:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "notebookId": {
+            "value": "@pipeline().libraryVariables.vl_variables_notebook_extract_to_landing_id",
+            "type": "Expression"
+          },
+          "workspaceId": {
+            "value": "@pipeline().libraryVariables.vl_variables_workspace_id",
+            "type": "Expression"
+          }
+        }
+      },
+      {
+        "name": "landing_to_bronze",
+        "type": "TridentNotebook",
+        "dependsOn": [
+          {
+            "activity": "extract_to_landing",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.00:10:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "notebookId": {
+            "value": "@pipeline().libraryVariables.vl_variables_notebook_landing_to_bronze_id",
+            "type": "Expression"
+          },
+          "workspaceId": {
+            "value": "@pipeline().libraryVariables.vl_variables_workspace_id",
+            "type": "Expression"
+          }
+        }
+      },
+      {
+        "name": "bronze_to_silver",
+        "type": "TridentNotebook",
+        "dependsOn": [
+          {
+            "activity": "landing_to_bronze",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.00:10:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "notebookId": {
+            "value": "@pipeline().libraryVariables.vl_variables_notebook_bronze_to_silver_id",
+            "type": "Expression"
+          },
+          "workspaceId": {
+            "value": "@pipeline().libraryVariables.vl_variables_workspace_id",
+            "type": "Expression"
+          }
+        }
+      },
+      {
+        "name": "silver_to_gold",
+        "type": "TridentNotebook",
+        "dependsOn": [
+          {
+            "activity": "bronze_to_silver",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.00:10:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "notebookId": {
+            "value": "@pipeline().libraryVariables.vl_variables_notebook_silver_to_gold_id",
+            "type": "Expression"
+          },
+          "workspaceId": {
+            "value": "@pipeline().libraryVariables.vl_variables_workspace_id",
+            "type": "Expression"
+          }
+        }
+      }
+    ],
+    "libraryVariables": {
+      "vl_variables_workspace_id": {
+        "type": "String",
+        "variableName": "workspace_id",
+        "libraryName": "vl_variables"
+      },
+      "vl_variables_notebook_extract_to_landing_id": {
+        "type": "String",
+        "variableName": "notebook_extract_to_landing_id",
+        "libraryName": "vl_variables"
+      },
+      "vl_variables_notebook_landing_to_bronze_id": {
+        "type": "String",
+        "variableName": "notebook_landing_to_bronze_id",
+        "libraryName": "vl_variables"
+      },
+      "vl_variables_notebook_bronze_to_silver_id": {
+        "type": "String",
+        "variableName": "notebook_bronze_to_silver_id",
+        "libraryName": "vl_variables"
+      },
+      "vl_variables_notebook_silver_to_gold_id": {
+        "type": "String",
+        "variableName": "notebook_silver_to_gold_id",
+        "libraryName": "vl_variables"
+      }
+    }
+  }
+}

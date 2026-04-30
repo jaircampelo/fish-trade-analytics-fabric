@@ -36,6 +36,30 @@
       "note": "",
       "type": "String",
       "value": ""
+    },
+    {
+      "name": "notebook_extract_to_landing_id",
+      "note": "",
+      "type": "String",
+      "value": ""
+    },
+    {
+      "name": "notebook_landing_to_bronze_id",
+      "note": "",
+      "type": "String",
+      "value": ""
+    },
+    {
+      "name": "notebook_bronze_to_silver_id",
+      "note": "",
+      "type": "String",
+      "value": ""
+    },
+    {
+      "name": "notebook_silver_to_gold_id",
+      "note": "",
+      "type": "String",
+      "value": ""
     }
   ]
 }
