@@ -25,6 +25,22 @@
     {
       "name": "lakehouse_sql_endpoint_id",
       "value": "f4c79822-e118-4740-8203-c61c6dc41141"
+    },
+    {
+      "name": "notebook_extract_to_landing_id",
+      "value": "b6c2117b-1b60-4676-a358-9f467a724913"
+    },
+    {
+      "name": "notebook_landing_to_bronze_id",
+      "value": "215d9f95-f1d5-4f1e-a4dc-bb2f9ed47053"
+    },
+    {
+      "name": "notebook_bronze_to_silver_id",
+      "value": "dbea4d4e-eb34-47a8-8831-9447dc2b7b65"
+    },
+    {
+      "name": "notebook_silver_to_gold_id",
+      "value": "563361e4-468b-4e50-aed7-32ee2e69b8fb"
     }
   ]
 }
