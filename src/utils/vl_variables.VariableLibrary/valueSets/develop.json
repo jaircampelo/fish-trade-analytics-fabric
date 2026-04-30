@@ -1,0 +1,30 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/variableLibrary/definition/valueSet/1.0.0/schema.json",
+  "name": "develop",
+  "variableOverrides": [
+    {
+      "name": "workspace_name",
+      "value": "fish_trade-DEV"
+    },
+    {
+      "name": "workspace_id",
+      "value": "ce6f616e-4279-435b-ae38-740062f5a025"
+    },
+    {
+      "name": "pool_id",
+      "value": "8e6fe5d4-5256-4c44-8c8a-d56bd804c455"
+    },
+    {
+      "name": "lakehouse_id",
+      "value": "eda48ea5-2446-4a40-8260-1597f4f0fe9f"
+    },
+    {
+      "name": "lakehouse_sql_endpoint_connection_string",
+      "value": "iecqp25kjcbudevcdxvmc3z4jy-nzqw7ttzijnuhlryoqagf5naeu.datawarehouse.fabric.microsoft.com"
+    },
+    {
+      "name": "lakehouse_sql_endpoint_id",
+      "value": "f5e4138e-4077-43f8-9cc1-269e363f824e"
+    }
+  ]
+}
