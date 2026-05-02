@@ -1,0 +1,158 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.2.0/schema.json",
+  "themeCollection": {
+    "baseTheme": {
+      "name": "Fluent2-CY26SU04",
+      "reportVersionAtImport": {
+        "visual": "2.8.0",
+        "report": "3.2.0",
+        "page": "2.3.1"
+      },
+      "type": "SharedResources"
+    },
+    "customTheme": {
+      "name": "Custom44301479231455143.json",
+      "reportVersionAtImport": {
+        "visual": "2.8.0",
+        "report": "3.2.0",
+        "page": "2.3.1"
+      },
+      "type": "RegisteredResources"
+    }
+  },
+  "objects": {
+    "section": [
+      {
+        "properties": {
+          "verticalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'Top'"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "expanded": {
+            "expr": {
+              "Literal": {
+                "Value": "true"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "resourcePackages": [
+    {
+      "name": "SharedResources",
+      "type": "SharedResources",
+      "items": [
+        {
+          "name": "Fluent2-CY26SU04",
+          "path": "BaseThemes/Fluent2-CY26SU04.json",
+          "type": "BaseTheme"
+        }
+      ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "balanca-comercial7018715759649774.svg",
+          "path": "balanca-comercial7018715759649774.svg",
+          "type": "Image"
+        },
+        {
+          "name": "corrente7220658335888278.svg",
+          "path": "corrente7220658335888278.svg",
+          "type": "Image"
+        },
+        {
+          "name": "Custom44301479231455143.json",
+          "path": "Custom44301479231455143.json",
+          "type": "CustomTheme"
+        },
+        {
+          "name": "exp-arrow7466779938880652.svg",
+          "path": "exp-arrow7466779938880652.svg",
+          "type": "Image"
+        },
+        {
+          "name": "favicon48828862470724255.png",
+          "path": "favicon48828862470724255.png",
+          "type": "Image"
+        },
+        {
+          "name": "filtro24262966951311316.svg",
+          "path": "filtro24262966951311316.svg",
+          "type": "Image"
+        },
+        {
+          "name": "imp-arrow4962775879374388.svg",
+          "path": "imp-arrow4962775879374388.svg",
+          "type": "Image"
+        },
+        {
+          "name": "page_balanca_comercial5710144046610787.svg",
+          "path": "page_balanca_comercial5710144046610787.svg",
+          "type": "Image"
+        },
+        {
+          "name": "page_brasil1558774349666905.svg",
+          "path": "page_brasil1558774349666905.svg",
+          "type": "Image"
+        },
+        {
+          "name": "page_parceiros_comerciais5166931998781438.svg",
+          "path": "page_parceiros_comerciais5166931998781438.svg",
+          "type": "Image"
+        },
+        {
+          "name": "page_produto510423327360579.svg",
+          "path": "page_produto510423327360579.svg",
+          "type": "Image"
+        },
+        {
+          "name": "page_visao_geral7840269708153986.svg",
+          "path": "page_visao_geral7840269708153986.svg",
+          "type": "Image"
+        },
+        {
+          "name": "preco-por-quilo6200628118714098.svg",
+          "path": "preco-por-quilo6200628118714098.svg",
+          "type": "Image"
+        },
+        {
+          "name": "sair7177479315282694.svg",
+          "path": "sair7177479315282694.svg",
+          "type": "Image"
+        },
+        {
+          "name": "sair7777160882486943.svg",
+          "path": "sair7777160882486943.svg",
+          "type": "Image"
+        },
+        {
+          "name": "taxa-cobertura22222619053662818.svg",
+          "path": "taxa-cobertura22222619053662818.svg",
+          "type": "Image"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "exportDataMode": "AllowSummarized",
+    "defaultDrillFilterOtherVisuals": true,
+    "allowChangeFilterTypes": true,
+    "useEnhancedTooltips": true,
+    "useDefaultAggregateDisplayName": true
+  }
+}
