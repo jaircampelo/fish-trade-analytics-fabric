@@ -1,0 +1,26 @@
+table aux_topn
+	lineageTag: ad4ef579-1e83-40ac-a66a-6866e353e0a5
+
+	measure 'aux_topn Value' = SELECTEDVALUE('aux_topn'[aux_topn])
+		formatString: 0
+		lineageTag: 7c98f2a6-0208-4985-9613-f82abcab8e66
+
+	column aux_topn
+		formatString: 0
+		lineageTag: abb3eb83-d70b-4adc-b64d-94045bad09c6
+		summarizeBy: none
+		sourceColumn: [Value]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0
+				}
+
+		annotation SummarizationSetBy = User
+
+	partition aux_topn = calculated
+		mode: import
+		source = GENERATESERIES(1, 20, 1)
+
+	annotation PBI_Id = 16aafc62fc9543d8b820026c196b79f2
+

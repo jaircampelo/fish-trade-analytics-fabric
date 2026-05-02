@@ -1,0 +1,38 @@
+table dim_categories
+	lineageTag: fab16bae-e5f6-4c6a-a959-b8d6dd342415
+	sourceLineageTag: [gold].[dim_categories]
+
+	column categoria_id
+		dataType: string
+		lineageTag: b8d1a353-4d97-4069-a012-98eca5a7887f
+		sourceLineageTag: categoria_id
+		summarizeBy: none
+		sourceColumn: categoria_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column categoria_nome
+		dataType: string
+		lineageTag: d94830aa-b49c-4abb-80f6-1692bc8ba42c
+		sourceLineageTag: categoria_nome
+		summarizeBy: none
+		sourceColumn: categoria_nome
+
+		annotation SummarizationSetBy = Automatic
+
+	column categoria_descricao
+		dataType: string
+		lineageTag: 0f4a3a77-f8b8-4fad-a11c-02fe7862d3b2
+		sourceLineageTag: categoria_descricao
+		summarizeBy: none
+		sourceColumn: categoria_descricao
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_categories = entity
+		mode: directLake
+		source
+			entityName: dim_categories
+			schemaName: gold
+			expressionSource: 'DirectLake - lh_fish_trade'
+

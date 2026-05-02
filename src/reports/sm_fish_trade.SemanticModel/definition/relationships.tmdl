@@ -1,0 +1,16 @@
+relationship e87a48d5-8845-8df1-1c8c-98c61bd07413
+	fromColumn: fact_trades.categoria_id
+	toColumn: dim_categories.categoria_id
+
+relationship 65697a43-2206-6d0b-06b7-b6834ba9aaf9
+	fromColumn: fact_trades.municipio_id
+	toColumn: dim_cities.municipio_id
+
+relationship 9225b915-13cd-5814-79cd-de096429b124
+	fromColumn: fact_trades.pais_id
+	toColumn: dim_countries.pais_id
+
+relationship 50e8d1f1-3bff-02e4-50f2-03b6bb0b95fc
+	fromColumn: fact_trades.comercio_data
+	toColumn: dim_calendar.data
+

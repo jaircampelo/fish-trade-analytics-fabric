@@ -1,0 +1,13 @@
+function formatar_numero =
+		(
+				valor : NUMERIC
+			) =>
+				SWITCH(
+					TRUE(),
+					ABS(valor) > 1000000000, FORMAT(valor, "#0,,,.00 Bi"),
+					ABS(valor) > 1000000, FORMAT(valor, "#0,,.00 Mi"),
+					ABS(valor) > 1000, FORMAT(valor, "#0,.00 K"),
+					FORMAT(valor, "#0")
+				)
+	lineageTag: 2f1eb8bb-f6fb-4070-b511-733a725e4944
+

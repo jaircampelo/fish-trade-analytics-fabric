@@ -1,0 +1,83 @@
+table dim_calendar
+	lineageTag: 61179ff8-6b79-49e1-bd16-5edff27ba529
+	sourceLineageTag: [gold].[dim_calendar]
+	dataCategory: Time
+
+	column data
+		dataType: dateTime
+		isKey
+		formatString: Short Date
+		lineageTag: cf407453-5398-42f6-9ad1-2fc97d1fbcda
+		sourceLineageTag: data
+		summarizeBy: none
+		sourceColumn: data
+
+		annotation SummarizationSetBy = Automatic
+
+	column ano
+		dataType: int64
+		formatString: 0
+		lineageTag: 9a3b92d7-f70b-4e2f-8734-cca395e37d9d
+		sourceLineageTag: ano
+		summarizeBy: none
+		sourceColumn: ano
+
+		annotation SummarizationSetBy = Automatic
+
+	column mes_numero
+		dataType: int64
+		formatString: 0
+		lineageTag: 0f36ef45-b0e6-4c68-99b6-7ca9ca810cc4
+		sourceLineageTag: mes_numero
+		summarizeBy: none
+		sourceColumn: mes_numero
+
+		annotation SummarizationSetBy = Automatic
+
+	column mes_nome
+		dataType: string
+		lineageTag: 88a29e47-70d2-4d43-9752-45819b332aa7
+		sourceLineageTag: mes_nome
+		summarizeBy: none
+		sourceColumn: mes_nome
+		sortByColumn: mes_numero
+
+		annotation SummarizationSetBy = Automatic
+
+	column mes_nome_abreviado
+		dataType: string
+		lineageTag: 306be835-72fa-4207-86d7-a639c14d3df2
+		sourceLineageTag: mes_nome_abreviado
+		summarizeBy: none
+		sourceColumn: mes_nome_abreviado
+		sortByColumn: mes_numero
+
+		annotation SummarizationSetBy = Automatic
+
+	column mes_ano_nome
+		dataType: string
+		lineageTag: e126a208-2956-4680-958b-a10793e079a4
+		sourceLineageTag: mes_ano_nome
+		summarizeBy: none
+		sourceColumn: mes_ano_nome
+		sortByColumn: mes_ano_numero
+
+		annotation SummarizationSetBy = Automatic
+
+	column mes_ano_numero
+		dataType: int64
+		formatString: 0
+		lineageTag: e3608228-7747-46ae-9c9b-78bb99b111be
+		sourceLineageTag: mes_ano_numero
+		summarizeBy: none
+		sourceColumn: mes_ano_numero
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_calendar = entity
+		mode: directLake
+		source
+			entityName: dim_calendar
+			schemaName: gold
+			expressionSource: 'DirectLake - lh_fish_trade'
+
