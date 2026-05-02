@@ -1,0 +1,95 @@
+table dim_cities
+	lineageTag: f8db43f8-f07c-486c-bb37-fb62cc39383a
+	sourceLineageTag: [gold].[dim_cities]
+
+	column municipio_id
+		dataType: string
+		lineageTag: 2cd4eb14-c35e-48ed-a55a-04d31015b10c
+		sourceLineageTag: municipio_id
+		summarizeBy: none
+		sourceColumn: municipio_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column municipio_nome
+		dataType: string
+		lineageTag: a31b5fb5-9d95-43e4-84cd-daa9fa653b9e
+		sourceLineageTag: municipio_nome
+		summarizeBy: none
+		sourceColumn: municipio_nome
+
+		annotation SummarizationSetBy = Automatic
+
+	column estado_nome
+		dataType: string
+		lineageTag: 169d0324-adf1-4e36-90c7-f0c9c1b0c536
+		sourceLineageTag: estado_nome
+		summarizeBy: none
+		sourceColumn: estado_nome
+
+		annotation SummarizationSetBy = Automatic
+
+	column uf
+		dataType: string
+		lineageTag: 8d1c2a79-83a5-45ef-988a-22346aaa9cc6
+		sourceLineageTag: uf
+		summarizeBy: none
+		sourceColumn: uf
+
+		annotation SummarizationSetBy = Automatic
+
+	column municipio_uf
+		dataType: string
+		lineageTag: 64967eef-3890-4670-9d61-5ecf57e2fa7e
+		sourceLineageTag: municipio_uf
+		summarizeBy: none
+		sourceColumn: municipio_uf
+
+		annotation SummarizationSetBy = Automatic
+
+	column regiao
+		dataType: string
+		lineageTag: dc0f05d0-fe74-4962-b74d-b831fb5190e2
+		sourceLineageTag: regiao
+		summarizeBy: none
+		sourceColumn: regiao
+
+		annotation SummarizationSetBy = Automatic
+
+	column ingested_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: aa467913-cd25-4587-bb65-cc72efa3d165
+		sourceLineageTag: ingested_at
+		summarizeBy: none
+		sourceColumn: ingested_at
+
+		annotation SummarizationSetBy = Automatic
+
+	column loaded_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 9359b15b-d69d-4dff-8397-6aa6973e6486
+		sourceLineageTag: loaded_at
+		summarizeBy: none
+		sourceColumn: loaded_at
+
+		annotation SummarizationSetBy = Automatic
+
+	column processed_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 47b1ec00-c654-4a43-bca6-7ef7efa4aa0f
+		sourceLineageTag: processed_at
+		summarizeBy: none
+		sourceColumn: processed_at
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_cities = entity
+		mode: directLake
+		source
+			entityName: dim_cities
+			schemaName: gold
+			expressionSource: 'DirectLake - lh_fish_trade'
+

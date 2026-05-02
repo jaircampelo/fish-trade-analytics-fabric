@@ -1,0 +1,59 @@
+table dim_countries
+	lineageTag: f9b3fec6-7b97-4772-a213-c4eb8515437a
+	sourceLineageTag: [gold].[dim_countries]
+
+	column pais_id
+		dataType: string
+		lineageTag: 9c9a6ac3-f408-454d-b504-a4b69ca8e1b5
+		sourceLineageTag: pais_id
+		summarizeBy: none
+		sourceColumn: pais_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column pais_nome
+		dataType: string
+		lineageTag: 4ec13ba8-5c09-4526-9ad1-3e82ff5e6b73
+		sourceLineageTag: pais_nome
+		summarizeBy: none
+		sourceColumn: pais_nome
+
+		annotation SummarizationSetBy = Automatic
+
+	column ingested_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 44fe39eb-4d3e-46d7-a64a-d130401226b6
+		sourceLineageTag: ingested_at
+		summarizeBy: none
+		sourceColumn: ingested_at
+
+		annotation SummarizationSetBy = Automatic
+
+	column loaded_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 8449095b-3198-4ed7-bd74-e41c0d3b9de8
+		sourceLineageTag: loaded_at
+		summarizeBy: none
+		sourceColumn: loaded_at
+
+		annotation SummarizationSetBy = Automatic
+
+	column processed_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: be4d42f8-11fd-47f8-90f4-07e9a764ffbf
+		sourceLineageTag: processed_at
+		summarizeBy: none
+		sourceColumn: processed_at
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_countries = entity
+		mode: directLake
+		source
+			entityName: dim_countries
+			schemaName: gold
+			expressionSource: 'DirectLake - lh_fish_trade'
+

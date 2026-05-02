@@ -1,0 +1,2667 @@
+table fact_trades
+	lineageTag: 53d045db-85f3-49d2-b5ca-530b4dc79340
+	sourceLineageTag: [gold].[fact_trades]
+
+	measure '$ Exportacoes' =
+			
+			CALCULATE(
+			    SUM(fact_trades[valor_nominal]),
+			    fact_trades[tipo_comercio] = "Exportação"
+			)
+		displayFolder: Medidas\01. Valor
+		lineageTag: e3acfd19-b42f-4f49-b5b0-019bcece6615
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '$ Importacoes' =
+			
+			CALCULATE(
+			    SUM(fact_trades[valor_nominal]),
+			    fact_trades[tipo_comercio] = "Importação"
+			)
+		displayFolder: Medidas\01. Valor
+		lineageTag: 6f510ae0-80e6-4b50-a528-906171b75abd
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '$ Corrente' = [$ Exportacoes] + [$ Importacoes]
+		displayFolder: Medidas\01. Valor
+		lineageTag: dbff88c7-6556-4efa-bc97-b061601db1b6
+
+		changedProperty = Name
+
+		changedProperty = DisplayFolder
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '# Peso Líquido Exportacoes' =
+			
+			CALCULATE(
+			    SUM(fact_trades[peso_liquido]),
+			    fact_trades[tipo_comercio] = "Exportação"
+			)
+		displayFolder: Medidas\02. Volume
+		lineageTag: 10af3bcb-f2b6-4b1d-93c5-5acb3be74c12
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '# Peso Líquido Importacoes' =
+			
+			CALCULATE(
+			    SUM(fact_trades[peso_liquido]),
+			    fact_trades[tipo_comercio] = "Importação"
+			)
+		displayFolder: Medidas\02. Volume
+		lineageTag: 33572285-f36f-4a37-a410-1832460b9848
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '# Qtd Municipios Exportacoes' =
+			
+			CALCULATE(
+			    DISTINCTCOUNT(fact_trades[municipio_id]),
+			    fact_trades[tipo_comercio] = "Exportação"
+			)
+		formatString: 0
+		displayFolder: Medidas\02. Volume
+		lineageTag: 55047e72-8f8a-41c5-a64b-113300e98eb1
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure '# Qtd Municipios Importacoes' =
+			
+			CALCULATE(
+			    DISTINCTCOUNT(fact_trades[municipio_id]),
+			    fact_trades[tipo_comercio] = "Importação"
+			)
+		formatString: 0
+		displayFolder: Medidas\02. Volume
+		lineageTag: 9dc8a26a-96ea-4ff2-b644-071ddaf9712a
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure '# Qtd Parceiros Exportacoes' =
+			
+			CALCULATE(
+			    DISTINCTCOUNT(fact_trades[pais_id]),
+			    fact_trades[tipo_comercio] = "Exportação"
+			)
+		formatString: 0
+		displayFolder: Medidas\02. Volume
+		lineageTag: f9eb74ea-441a-4e98-b14d-1e249914c019
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure '# Qtd Parceiros Importacoes' =
+			
+			CALCULATE(
+			    DISTINCTCOUNT(fact_trades[pais_id]),
+			    fact_trades[tipo_comercio] = "Importação"
+			)
+		formatString: 0
+		displayFolder: Medidas\02. Volume
+		lineageTag: 5d5482fe-d5ea-4e49-abc8-4b65793bc4ac
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure '% Participacao no Total Exportacoes' =
+			
+			VAR __Total =
+			CALCULATE(
+			    [$ Exportacoes],
+			    ALL(fact_trades)
+			)
+			
+			VAR __Result = DIVIDE([$ Exportacoes], __Total)
+			
+			RETURN
+			__Result
+		displayFolder: Medidas\03. Performance & Preço
+		lineageTag: e6f374ad-c436-4b14-a127-7803bdcf9c56
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% Participacao no Total Importacoes' =
+			
+			VAR __Total =
+			CALCULATE(
+			    [$ Importacoes],
+			    ALL(fact_trades)
+			)
+			
+			VAR __Result = DIVIDE([$ Importacoes], __Total)
+			
+			RETURN
+			__Result
+		displayFolder: Medidas\03. Performance & Preço
+		lineageTag: 410c2d75-5b88-4fe1-a052-efb33de993e1
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% Participacao no Total por Pais' =
+			
+			VAR __Total =
+			CALCULATE(
+			    SUM(fact_trades[valor_nominal]),
+			    ALL(dim_countries[pais_nome])
+			)
+			
+			VAR __Result = DIVIDE(SUM(fact_trades[valor_nominal]), __Total)
+			
+			RETURN
+			__Result
+		displayFolder: Medidas\03. Performance & Preço
+		lineageTag: 72805aec-c358-4f7a-a04a-f5b19e620476
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% Taxa de Cobertura' = DIVIDE([$ Exportacoes], [$ Importacoes])
+		displayFolder: Medidas\03. Performance & Preço
+		lineageTag: 36738f99-f82d-4a8e-85f1-0c5dd9e1ce5a
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '$ Balanca Comercial' = [$ Exportacoes] - [$ Importacoes]
+		displayFolder: Medidas\03. Performance & Preço
+		lineageTag: f3be8740-43ce-44a7-a767-7682effcc9ee
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '$ Preco Medio por Quilo Exportacoes' = DIVIDE([$ Exportacoes], [# Peso Líquido Exportacoes])
+		displayFolder: Medidas\03. Performance & Preço
+		lineageTag: 7325c9a5-4692-4f46-97d3-23d40b6b217e
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '$ Preco Medio por Quilo Importacoes' = DIVIDE([$ Importacoes], [# Peso Líquido Importacoes])
+		displayFolder: Medidas\03. Performance & Preço
+		lineageTag: 5418a53e-055c-4003-983e-cf7631322128
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% HHI Pais Dinamico' = ```
+			
+			VAR __TabelaShare = 
+			    ADDCOLUMNS(
+			        VALUES(dim_countries[pais_nome]),
+			        "@Share", [% Participacao no Total por Pais]
+			    )
+			RETURN
+			    SUMX(__TabelaShare, [@Share] ^ 2)
+			```
+		displayFolder: Medidas\03. Performance & Preço
+		lineageTag: f6ed5475-e1d7-421d-8f98-0fe1330be8bb
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% HHI Estado Exportacoes' = ```
+			
+			VAR __TabelaShare = 
+			    ADDCOLUMNS(
+			        VALUES(dim_cities[municipio_nome]),
+			        "@Share", [% Participacao no Total Exportacoes]
+			    )
+			RETURN
+			    SUMX(__TabelaShare, [@Share] ^ 2)
+			```
+		displayFolder: Medidas\03. Performance & Preço
+		lineageTag: 78d4c0de-ed65-4be1-a813-daa457eecdac
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% HHI Estado Importacoes' = ```
+			
+			VAR __TabelaShare = 
+			    ADDCOLUMNS(
+			        VALUES(dim_cities[municipio_nome]),
+			        "@Share", [% Participacao no Total Importacoes]
+			    )
+			RETURN
+			    SUMX(__TabelaShare, [@Share] ^ 2)
+			```
+		displayFolder: Medidas\03. Performance & Preço
+		lineageTag: c16c5e14-20a4-4116-a34f-52e6cfefdb2d
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Ranking % HHI Exportacoes por Estado' =
+			
+			RANK(
+			    DENSE,
+			    ALLSELECTED(dim_cities[estado_nome]),
+			    ORDERBY([$ Exportacoes], DESC)
+			)
+		formatString: 0
+		displayFolder: Medidas\04. Rankings
+		lineageTag: de74dda3-69a7-49e7-b4b5-4d871c6abedf
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'Ranking % HHI Importacoes por Estado' =
+			
+			RANK(
+			    DENSE,
+			    ALLSELECTED(dim_cities[estado_nome]),
+			    ORDERBY([$ Importacoes], DESC)
+			)
+		formatString: 0
+		displayFolder: Medidas\04. Rankings
+		lineageTag: 2f020e4d-98e4-4bdb-9eae-f6ada0c881af
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'Ranking Exportacoes por Pais' =
+			
+			RANK(
+			    DENSE,
+			    ALLSELECTED(dim_countries[pais_nome]),
+			    ORDERBY([$ Exportacoes], DESC)
+			)
+		formatString: 0
+		displayFolder: Medidas\04. Rankings
+		lineageTag: d3af81ea-ffdb-42dc-bc41-9f7adb078c06
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'Top N % Exportacoes Paises Parceiros' =
+			
+			VAR __TopN =
+			TOPN(
+			    [aux_topn Value],
+			    ALL(dim_countries[pais_nome]),
+			    [% Participacao no Total Exportacoes], DESC
+			)
+			
+			VAR __ExpTopN =
+			CALCULATE(
+			    [% Participacao no Total Exportacoes],
+			    KEEPFILTERS(__TopN)
+			)
+			
+			RETURN
+			__ExpTopN
+		displayFolder: Medidas\04. Rankings
+		lineageTag: b56cd25c-4968-4742-84d2-c8ccd62ba1ac
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Top N % HHI Estado Exportacoes' =
+			
+			VAR __TopN =
+			TOPN(
+			    [aux_topn Value],
+			    ALL(dim_cities[estado_nome]),
+			    [% HHI Estado Exportacoes], DESC
+			)
+			
+			VAR __ExpTopN =
+			CALCULATE(
+			    [% HHI Estado Exportacoes],
+			    KEEPFILTERS(__TopN)
+			)
+			
+			RETURN
+			__ExpTopN
+		displayFolder: Medidas\04. Rankings
+		lineageTag: b7e2e22a-5243-48a2-86a6-6320935016a9
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Top N % HHI Estado Importacoes' =
+			
+			VAR __TopN =
+			TOPN(
+			    [aux_topn Value],
+			    ALL(dim_cities[estado_nome]),
+			    [% HHI Estado Importacoes], DESC
+			)
+			
+			VAR __ExpTopN =
+			CALCULATE(
+			    [% HHI Estado Importacoes],
+			    KEEPFILTERS(__TopN)
+			)
+			
+			RETURN
+			__ExpTopN
+		displayFolder: Medidas\04. Rankings
+		lineageTag: e2c4f1de-826c-4cce-92c9-ccc9d74e1170
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Top N Estados Exportacoes' =
+			
+			VAR __TopN =
+			TOPN(
+			    [aux_topn Value],
+			    ALL(dim_cities[estado_nome]),
+			    [$ Exportacoes], DESC
+			)
+			
+			VAR __Result =
+			CALCULATE(
+			    [$ Exportacoes],
+			    KEEPFILTERS(__TopN)
+			)
+			
+			RETURN
+			__Result
+		displayFolder: Medidas\04. Rankings
+		lineageTag: 45accae2-6daa-45f6-aa06-e9d59238f04b
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Top N Market Share Exportacoes (por Corrente)' =
+			
+			VAR __TopN =
+			TOPN(
+			    [aux_topn Value],
+			    ALL(dim_countries[pais_nome]),
+			    [$ Corrente], DESC
+			)
+			
+			VAR __Result =
+			CALCULATE(
+			    [% Participacao no Total Exportacoes],
+			    KEEPFILTERS(__TopN)
+			)
+			
+			RETURN
+			__Result
+		displayFolder: Medidas\04. Rankings
+		lineageTag: 5b3ed6dd-d6e3-445f-8c69-dd861de2120d
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Top N Market Share Importacoes (por Corrente)' =
+			
+			VAR __TopN =
+			TOPN(
+			    [aux_topn Value],
+			    ALL(dim_countries[pais_nome]),
+			    [$ Corrente], DESC
+			)
+			
+			VAR __Result =
+			CALCULATE(
+			    [% Participacao no Total Importacoes],
+			    KEEPFILTERS(__TopN)
+			)
+			
+			RETURN
+			__Result
+		displayFolder: Medidas\04. Rankings
+		lineageTag: eaaaa86c-1730-44f3-80c0-3608fe8462df
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Top N Municipios Exportacoes' =
+			
+			VAR __TopN =
+			TOPN(
+			    [aux_topn Value],
+			    ALL(dim_cities[municipio_uf]),
+			    [$ Exportacoes], DESC
+			)
+			
+			VAR __Result =
+			CALCULATE(
+			    [$ Exportacoes],
+			    KEEPFILTERS(__TopN)
+			)
+			
+			RETURN
+			__Result
+		displayFolder: Medidas\04. Rankings
+		lineageTag: 1261beef-5a67-4f3c-842c-75e42dbf0377
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Top N Municipios Importacoes' =
+			
+			VAR __TopN =
+			TOPN(
+			    [aux_topn Value],
+			    ALL(dim_cities[municipio_uf]),
+			    [$ Importacoes], DESC
+			)
+			
+			VAR __Result =
+			CALCULATE(
+			    [$ Importacoes],
+			    KEEPFILTERS(__TopN)
+			)
+			
+			RETURN
+			__Result
+		displayFolder: Medidas\04. Rankings
+		lineageTag: b073f7b8-81e8-4c39-b5a2-474493cbe1cd
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '$ Balança Comercial Real' = [$ Exportacoes Real] - [$ Importacoes Real]
+		displayFolder: Medidas\05. Valor Real
+		lineageTag: 3aebf097-d9bf-4a39-914f-b7742df5d2a1
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure '$ Exportacoes Real' =
+			
+			CALCULATE(
+			    SUM(fact_trades[valor_real]),
+			    fact_trades[tipo_comercio] = "Exportação"
+			)
+		displayFolder: Medidas\05. Valor Real
+		lineageTag: d71f86d1-9e99-4986-b031-a80d9baeb879
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '$ Importacoes Real' =
+			
+			CALCULATE(
+			    SUM(fact_trades[valor_real]),
+			    fact_trades[tipo_comercio] = "Importação"
+			)
+		displayFolder: Medidas\05. Valor Real
+		lineageTag: 2d08e6b8-bf6d-4eb2-b60d-3faea00e4a98
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% Corrente YoY' =
+			
+			VAR __Ly = [$ Corrente LY]
+			
+			VAR __Result = DIVIDE( [$ Corrente] - __Ly, __Ly)
+			
+			RETURN
+			__Result
+		displayFolder: Medidas\06. Time Intelligence
+		lineageTag: 47f54e06-b18f-4e60-bcff-02c3227505b8
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure '% Exportacoes YoY' =
+			
+			VAR __Ly = [$ Exportacoes LY]
+			
+			VAR __Result = DIVIDE( [$ Exportacoes] - __Ly, __Ly)
+			
+			RETURN
+			__Result
+		displayFolder: Medidas\06. Time Intelligence
+		lineageTag: 6dd46e86-8dac-40cd-bc36-94a306129b21
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure '% Importacoes YoY' =
+			
+			VAR __Ly = [$ Importacoes LY]
+			
+			VAR __Result = DIVIDE( [$ Importacoes] - __Ly, __Ly)
+			
+			RETURN
+			__Result
+		displayFolder: Medidas\06. Time Intelligence
+		lineageTag: a3c36c7d-5390-462c-8bcd-b8d2ee180343
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure '% Preco Medio por Quilo Exportacoes YoY' =
+			
+			VAR __Ly = [$ Preco Medio por Quilo Exportacoes LY]
+			
+			VAR __Result = DIVIDE([$ Preco Medio por Quilo Exportacoes] - __Ly, __Ly)
+			
+			RETURN
+			__Result
+		displayFolder: Medidas\06. Time Intelligence
+		lineageTag: a88ff00b-e896-4357-8cf3-f68f120b0b02
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure '% Taxa de Cobertura LY' =
+			
+			CALCULATE(
+			    [% Taxa de Cobertura],
+			    SAMEPERIODLASTYEAR(dim_calendar[data])
+			)
+		displayFolder: Medidas\06. Time Intelligence
+		lineageTag: 1b5465ed-ac3d-4512-aa9d-45ea8f97e48b
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '$ Balanca Comercial LY' =
+			
+			CALCULATE(
+			    [$ Balanca Comercial],
+			    SAMEPERIODLASTYEAR(dim_calendar[data])
+			)
+		displayFolder: Medidas\06. Time Intelligence
+		lineageTag: 17d707cf-e668-4e31-a205-d7e3249a8586
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '$ Balanca Comercial YoY' = [$ Balanca Comercial] - [$ Balanca Comercial LY]
+		displayFolder: Medidas\06. Time Intelligence
+		lineageTag: 27bdc8b8-8078-4599-90f2-37557b8dce15
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '$ Corrente LY' =
+			
+			CALCULATE(
+			    [$ Corrente],
+			    SAMEPERIODLASTYEAR(dim_calendar[data])
+			)
+		displayFolder: Medidas\06. Time Intelligence
+		lineageTag: 5ba26d81-5630-47e1-864d-3504d9b07207
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '$ Exportacoes Acc' =
+			
+			CALCULATE(
+			    [$ Exportacoes],
+			    dim_calendar[data] <= MAX(dim_calendar[data])
+			)
+		displayFolder: Medidas\06. Time Intelligence
+		lineageTag: 425223ed-3417-4c48-a7a8-73978b8f733a
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '$ Importacoes Acc' =
+			
+			CALCULATE(
+			    [$ Importacoes],
+			    dim_calendar[data] <= MAX(dim_calendar[data])
+			)
+		displayFolder: Medidas\06. Time Intelligence
+		lineageTag: 02e051ad-06ba-4fd7-a3e8-ec7d50d8ddfb
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '$ Exportacoes LY' =
+			
+			CALCULATE(
+			    [$ Exportacoes],
+			    SAMEPERIODLASTYEAR(dim_calendar[data])
+			)
+		displayFolder: Medidas\06. Time Intelligence
+		lineageTag: aa75a49e-eb81-4081-aab6-e3461c2f751b
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '$ Importacoes LY' =
+			
+			CALCULATE(
+			    [$ Importacoes],
+			    SAMEPERIODLASTYEAR(dim_calendar[data])
+			)
+		displayFolder: Medidas\06. Time Intelligence
+		lineageTag: f116bbab-0813-4522-b0dd-59b2f25b2c8e
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '$ Preco Medio por Quilo Exportacoes LY' =
+			
+			CALCULATE(
+			    [$ Preco Medio por Quilo Exportacoes],
+			    SAMEPERIODLASTYEAR(dim_calendar[data])
+			)
+		displayFolder: Medidas\06. Time Intelligence
+		lineageTag: ba53bb46-9945-45db-906c-882c1f763050
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'p.p. Taxa de Cobertura YoY' = [% Taxa de Cobertura] - [% Taxa de Cobertura LY]
+		displayFolder: Medidas\06. Time Intelligence
+		lineageTag: aec79538-01cd-408e-9128-0b264d763e3c
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '_Dados Disponiveis' =
+			
+			VAR __MinData =
+			    CALCULATE(
+			        MIN(fact_trades[comercio_data]),
+			        ALL(fact_trades)
+			    )
+			VAR __MaxData =
+			    CALCULATE(
+			        MAX(fact_trades[comercio_data]),
+			        ALL(fact_trades)
+			    )
+			
+			RETURN
+			"Dados disponíveis de "
+			& FORMAT(__MinData, "mmm/yyyy")
+			& " a "
+			& FORMAT(__MaxData, "mmm/yyyy")
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: a20f0696-f947-477d-b247-a3822a715e85
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure '_Dummy Visual' = " "
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: fdd9347c-208a-404a-9f0c-716413188abd
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'B - Maior Estado Exportacoes' =
+			
+			CONCATENATEX(
+			    TOPN(
+			        1,
+			        ALLSELECTED(dim_cities[estado_nome]),
+			        [$ Exportacoes], DESC
+			    ),
+			    dim_cities[estado_nome]
+			)
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: 78c7ba8d-28e6-4c10-bd8c-88e3a906aaa7
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'B - Maior Estado Importacoes' =
+			
+			CONCATENATEX(
+			    TOPN(
+			        1,
+			        ALLSELECTED(dim_cities[estado_nome]),
+			        [$ Importacoes], DESC
+			    ),
+			    dim_cities[estado_nome]
+			)
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: f77244d3-76ed-4793-a414-d702deeb1520
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'B - Subtitulo Card Exportacoes' = ```
+			
+			VAR __MaiorEstadoTab =
+			    INDEX(
+			        1,
+			        ALLSELECTED(dim_cities[estado_nome]),
+			        ORDERBY([$ Exportacoes], DESC)
+			    )
+			VAR __MaiorEstadoNome =
+			    CONCATENATEX(__MaiorEstadoTab, dim_cities[estado_nome])
+			VAR __TabMaiorEstadoComValor =
+			    ADDCOLUMNS(
+			        ALLSELECTED(dim_cities[estado_nome]),
+			        "@Valor",
+			        [$ Exportacoes],
+			        "@Peso",
+			        [# Peso Líquido Exportacoes]
+			    )
+			VAR __MaiorEstadoValor =
+			    MAXX(
+			        TOPN(1, __TabMaiorEstadoComValor, [@Valor], DESC),
+			        [@Valor]
+			    )
+			VAR __FormatMaiorEstadoValor =
+			    formatar_numero(__MaiorEstadoValor)
+			VAR __MaiorEstadoPeso =
+			    MAXX(
+			        TOPN(1, __TabMaiorEstadoComValor, [@Peso], DESC),
+			        [@Peso]
+			    )
+			VAR __FormatMaiorEstadoPeso =
+			    SWITCH(
+			        TRUE(),
+			        ABS(__MaiorEstadoPeso) >= 1000, FORMAT(__MaiorEstadoPeso, "#,#0,.00 Ton"),
+			        FORMAT(__MaiorEstadoPeso, "#0 Kg")
+			    )
+			
+			VAR __Data =
+			ALLSELECTED(dim_calendar[mes_ano_nome], dim_calendar[mes_ano_numero])
+			VAR __MinNumero = 
+			MINX(
+			    FILTER(__Data, [$ Exportacoes] > 0), 
+			    dim_calendar[mes_ano_numero]
+			)
+			VAR __MaxNumero = 
+			MAXX(
+			    FILTER(__Data, [$ Exportacoes] > 0), 
+			    dim_calendar[mes_ano_numero]
+			)
+			VAR __MinNome = 
+			MAXX(
+			    FILTER(__Data, dim_calendar[mes_ano_numero] = __MinNumero), 
+			    dim_calendar[mes_ano_nome]
+			)
+			VAR __MaxNome = 
+			MAXX(
+			    FILTER(__Data, dim_calendar[mes_ano_numero] = __MaxNumero), 
+			    dim_calendar[mes_ano_nome]
+			)
+			
+			VAR __Texto =
+			    "Foi o estado que mais exportou pescado no período de "
+			    & __MinNome & " - " & __MaxNome
+			    & ", acumulando o valor de "
+			    & __FormatMaiorEstadoValor
+			    & " de dólares e um volume total de "
+			    & __FormatMaiorEstadoPeso & "."
+			RETURN
+			__Texto
+			```
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: b2b286f3-ccce-4c16-9b7a-18ffa2fc3f95
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'B - Subtitulo Card Importacoes' = ```
+			
+			VAR __MaiorEstadoTab =
+			    INDEX(
+			        1,
+			        ALLSELECTED(dim_cities[estado_nome]),
+			        ORDERBY([$ Importacoes], DESC)
+			    )
+			VAR __MaiorEstadoNome =
+			    CONCATENATEX(__MaiorEstadoTab, dim_cities[estado_nome])
+			VAR __TabMaiorEstadoComValor =
+			    ADDCOLUMNS(
+			        ALLSELECTED(dim_cities[estado_nome]),
+			        "@Valor",
+			        [$ Importacoes],
+			        "@Peso",
+			        [# Peso Líquido Importacoes]
+			    )
+			VAR __MaiorEstadoValor =
+			    MAXX(
+			        TOPN(1, __TabMaiorEstadoComValor, [@Valor], DESC),
+			        [@Valor]
+			    )
+			VAR __FormatMaiorEstadoValor =
+			    formatar_numero(__MaiorEstadoValor)
+			VAR __MaiorEstadoPeso =
+			    MAXX(
+			        TOPN(1, __TabMaiorEstadoComValor, [@Peso], DESC),
+			        [@Peso]
+			    )
+			VAR __FormatMaiorEstadoPeso =
+			    SWITCH(
+			        TRUE(),
+			        ABS(__MaiorEstadoPeso) >= 1000, FORMAT(__MaiorEstadoPeso, "#,#0,.00 Ton"),
+			        FORMAT(__MaiorEstadoPeso, "#0 Kg")
+			    )
+			
+			VAR __Data =
+			ALLSELECTED(dim_calendar[mes_ano_nome], dim_calendar[mes_ano_numero])
+			VAR __MinNumero = 
+			MINX(
+			    FILTER(__Data, [$ Importacoes] > 0), 
+			    dim_calendar[mes_ano_numero]
+			)
+			VAR __MaxNumero = 
+			MAXX(
+			    FILTER(__Data, [$ Importacoes] > 0), 
+			    dim_calendar[mes_ano_numero]
+			)
+			VAR __MinNome = 
+			MAXX(
+			    FILTER(__Data, dim_calendar[mes_ano_numero] = __MinNumero), 
+			    dim_calendar[mes_ano_nome]
+			)
+			VAR __MaxNome = 
+			MAXX(
+			    FILTER(__Data, dim_calendar[mes_ano_numero] = __MaxNumero), 
+			    dim_calendar[mes_ano_nome]
+			)
+			
+			VAR __Texto =
+			    "Foi o estado que mais importou pescado no período de "
+			    & __MinNome & " - " & __MaxNome
+			    & ", acumulando o valor de "
+			    & __FormatMaiorEstadoValor
+			    & " de dólares e um volume total de "
+			    & __FormatMaiorEstadoPeso & "."
+			RETURN
+			__Texto
+			```
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: 2be2bfd9-92ec-40f5-bd7f-ac71464cad23
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'B - Subtitulo Mapa Exportacoes' =
+			
+			VAR __TopStateTab =
+			    ADDCOLUMNS(
+			        ALLSELECTED(dim_cities[estado_nome]),
+			        "@Valor",
+			        [$ Exportacoes]
+			    )
+			
+			VAR __TopStateNome =
+			    CONCATENATEX(TOPN(1, __TopStateTab, [@Valor], DESC), dim_cities[estado_nome])
+			VAR __TopStateValor =
+			    MAXX(TOPN(1, __TopStateTab, [@Valor], DESC), [@Valor])
+			VAR __FormatTopStateValor =
+			    formatar_numero(__TopStateValor)
+			
+			VAR __Texto =
+			    __TopStateNome
+			    & " (U$ " & __FormatTopStateValor
+			    & ") apresenta o maior volume financeiro acumulado no período selecionado."
+			
+			RETURN
+			    __Texto
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: be3b8cf4-9c85-4d06-a298-f537b25c3bc3
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'B - Subtitulo Mapa Importacoes' =
+			
+			VAR __TopStateTab =
+			    ADDCOLUMNS(
+			        ALLSELECTED(dim_cities[estado_nome]),
+			        "@Valor",
+			        [$ Importacoes]
+			    )
+			
+			VAR __TopStateNome =
+			    CONCATENATEX(TOPN(1, __TopStateTab, [@Valor], DESC), dim_cities[estado_nome])
+			VAR __TopStateValor =
+			    MAXX(TOPN(1, __TopStateTab, [@Valor], DESC), [@Valor])
+			VAR __FormatTopStateValor =
+			    formatar_numero(__TopStateValor)
+			
+			VAR __Texto =
+			    __TopStateNome
+			    & " (U$ " & __FormatTopStateValor
+			    & ") apresenta o maior volume financeiro acumulado no período selecionado."
+			
+			RETURN
+			    __Texto
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: 7ba09b47-36a6-4eac-b258-0b077f5e0063
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'B - Subtitulo Municipios Ativos Exportacoes' =
+			
+			VAR __TopStateTab =
+			    ADDCOLUMNS(
+			        ALLSELECTED(dim_cities[estado_nome]),
+			        "@Valor",
+			        [# Qtd Municipios Exportacoes]
+			    )
+			
+			VAR __TopStateNome =
+			    CONCATENATEX(TOPN(1, __TopStateTab, [@Valor], DESC), dim_cities[estado_nome])
+			VAR __TopStateValor =
+			    MAXX(TOPN(1, __TopStateTab, [@Valor], DESC), [@Valor])
+			
+			VAR __Texto =
+			    __TopStateNome
+			    & " lidera o ranking nacional com "
+			    & __TopStateValor
+			    & " municípios participantes no mercado externo de exportações."
+			
+			RETURN
+			    __Texto
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: 21c85204-e154-4a2c-ac1d-cfe2bc3e3b7a
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'B - Subtitulo Municipios Ativos Importacoes' =
+			
+			VAR __TopStateTab =
+			    ADDCOLUMNS(
+			        ALLSELECTED(dim_cities[estado_nome]),
+			        "@Valor",
+			        [# Qtd Municipios Importacoes]
+			    )
+			
+			VAR __TopStateNome =
+			    CONCATENATEX(TOPN(1, __TopStateTab, [@Valor], DESC), dim_cities[estado_nome])
+			VAR __TopStateValor =
+			    MAXX(TOPN(1, __TopStateTab, [@Valor], DESC), [@Valor])
+			
+			VAR __Texto =
+			    __TopStateNome
+			    & " lidera o ranking nacional com "
+			    & __TopStateValor
+			    & " municípios participantes no mercado externo de importações."
+			
+			RETURN
+			    __Texto
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: ae6b2287-cacb-49b6-b83d-2948c2388643
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'B - Subtitulo Top Municipios Exportacoes' =
+			
+			VAR __MaiorMunTab =
+			    INDEX(
+			        1,
+			        ALLSELECTED(dim_cities[municipio_uf]),
+			        ORDERBY([$ Exportacoes], DESC)
+			    )
+			VAR __MaiorMunTabValor =
+			    ADDCOLUMNS(
+			        ALLSELECTED(dim_cities[municipio_uf]),
+			        "@Valor",
+			        [$ Exportacoes]
+			    )
+			VAR __MaiorMunNome =
+			    CONCATENATEX(__MaiorMunTab, dim_cities[municipio_uf])
+			VAR __MaiorMunValor =
+			MAXX(
+			    TOPN(1, __MaiorMunTabValor, [@Valor], DESC),
+			    [@Valor]
+			)
+			VAR __FormarMaiorMunValor =
+			    formatar_numero(__MaiorMunValor)
+			
+			VAR __Texto =
+			    __MaiorMunNome
+			    & " se destaca como o maior exportador de pescado (U$ "
+			    & __FormarMaiorMunValor
+			    & ") para o período selecionado."
+			
+			RETURN
+			__Texto
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: ae6cb3e9-832c-4c15-a712-a8aecd02f0c2
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'B - Subtitulo Top Municipios Importacoes' =
+			
+			VAR __MaiorMunTab =
+			    INDEX(
+			        1,
+			        ALLSELECTED(dim_cities[municipio_uf]),
+			        ORDERBY([$ Importacoes], DESC)
+			    )
+			VAR __MaiorMunTabValor =
+			    ADDCOLUMNS(
+			        ALLSELECTED(dim_cities[municipio_uf]),
+			        "@Valor",
+			        [$ Importacoes]
+			    )
+			VAR __MaiorMunNome =
+			    CONCATENATEX(__MaiorMunTab, dim_cities[municipio_uf])
+			VAR __MaiorMunValor =
+			MAXX(
+			    TOPN(1, __MaiorMunTabValor, [@Valor], DESC),
+			    [@Valor]
+			)
+			VAR __FormarMaiorMunValor =
+			    formatar_numero(__MaiorMunValor)
+			
+			VAR __Texto =
+			    __MaiorMunNome
+			    & " se destaca como o maior importador de pescado (U$ "
+			    & __FormarMaiorMunValor
+			    & ") para o período selecionado."
+			
+			RETURN
+			__Texto
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: d2b52ec8-d647-4ba0-9c6e-ca24492b160b
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'B - Titulo Top Municipios Exportacoes' = ```
+			
+			VAR __TopN = [aux_topn Value]
+			VAR __Data =
+			ALLSELECTED(dim_calendar[mes_ano_nome], dim_calendar[mes_ano_numero])
+			VAR __MinNumero = 
+			MINX(
+			    FILTER(__Data, [$ Exportacoes] > 0), 
+			    dim_calendar[mes_ano_numero]
+			)
+			VAR __MaxNumero = 
+			MAXX(
+			    FILTER(__Data, [$ Exportacoes] > 0), 
+			    dim_calendar[mes_ano_numero]
+			)
+			VAR __MinNome = 
+			MAXX(
+			    FILTER(__Data, dim_calendar[mes_ano_numero] = __MinNumero), 
+			    dim_calendar[mes_ano_nome]
+			)
+			VAR __MaxNome = 
+			MAXX(
+			    FILTER(__Data, dim_calendar[mes_ano_numero] = __MaxNumero), 
+			    dim_calendar[mes_ano_nome]
+			)
+			VAR __Texto =
+			    "Exibindo os "
+			    & __TopN
+			    & " estados que mais exportaram pescado no período de "
+			    & __MinNome & " - " & __MaxNome
+			
+			RETURN
+			    __Texto
+			```
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: 0f1a5b9a-6a7c-4795-b265-8a78dde3186e
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'B - Titulo Top Municipios Importacoes' = ```
+			
+			VAR __TopN = [aux_topn Value]
+			VAR __Data =
+			ALLSELECTED(dim_calendar[mes_ano_nome], dim_calendar[mes_ano_numero])
+			VAR __MinNumero = 
+			MINX(
+			    FILTER(__Data, [$ Importacoes] > 0), 
+			    dim_calendar[mes_ano_numero]
+			)
+			VAR __MaxNumero = 
+			MAXX(
+			    FILTER(__Data, [$ Importacoes] > 0), 
+			    dim_calendar[mes_ano_numero]
+			)
+			VAR __MinNome = 
+			MAXX(
+			    FILTER(__Data, dim_calendar[mes_ano_numero] = __MinNumero), 
+			    dim_calendar[mes_ano_nome]
+			)
+			VAR __MaxNome = 
+			MAXX(
+			    FILTER(__Data, dim_calendar[mes_ano_numero] = __MaxNumero), 
+			    dim_calendar[mes_ano_nome]
+			)
+			VAR __Texto =
+			    "Exibindo os "
+			    & __TopN
+			    & " estados que mais importaram pescado no período de "
+			    & __MinNome & " - " & __MaxNome
+			
+			RETURN
+			    __Texto
+			```
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: 7508ac43-113a-48ad-80e2-16bf9531a9d8
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'BC - Subtitulo Acumulado' = ```
+			
+			VAR __TodosAnos = ALLSELECTED(dim_calendar[ano])
+			
+			VAR __TradeDiff =
+			CALCULATE(
+			    ABS([$ Exportacoes Acc] - [$ Importacoes Acc]),
+			    __TodosAnos
+			)
+			VAR __FormatTradeDiff =
+			formatar_numero(__TradeDiff)
+			
+			VAR __Data =
+			ALLSELECTED(dim_calendar[mes_ano_nome], dim_calendar[mes_ano_numero])
+			VAR __MinNumero = 
+			MINX(
+			    FILTER(__Data, [$ Exportacoes] > 0), 
+			    dim_calendar[mes_ano_numero]
+			)
+			VAR __MaxNumero = 
+			MAXX(
+			    FILTER(__Data, [$ Exportacoes] > 0), 
+			    dim_calendar[mes_ano_numero]
+			)
+			VAR __MinNome = 
+			MAXX(
+			    FILTER(__Data, dim_calendar[mes_ano_numero] = __MinNumero), 
+			    dim_calendar[mes_ano_nome]
+			)
+			VAR __MaxNome = 
+			MAXX(
+			    FILTER(__Data, dim_calendar[mes_ano_numero] = __MaxNumero), 
+			    dim_calendar[mes_ano_nome]
+			)
+			
+			VAR __TextoDeficit =
+			"Para o peíodo de "
+			& __MinNome & " - " & __MaxNome
+			& ", o Brasil possui um déficit acumulado de "
+			& __FormatTradeDiff & " de dólares."
+			VAR __TextoSuperavit =
+			"Para o peíodo de "
+			& __MinNome & " - " & __MaxNome
+			& ", o Brasil possui um superávit acumulado de "
+			& __FormatTradeDiff & " de dólares."
+			
+			RETURN
+			IF(
+			    [$ Exportacoes Acc] > [$ Importacoes Acc],
+			    __TextoSuperavit,
+			    __TextoDeficit
+			)
+			```
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: 116c5b68-524b-48ae-b524-257bcf4f028c
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'BC - Subtitulo Heatmap' = ```
+			
+			VAR __TabMediaMensal =
+			ADDCOLUMNS(
+			    ALLSELECTED(dim_calendar[mes_nome]),
+			    "@MediaMensal",
+			    AVERAGEX(
+			        ALLSELECTED(dim_calendar[ano]),
+			        [$ Balanca Comercial]
+			    )
+			)
+			
+			VAR __MinVal = MINX(__TabMediaMensal, [@MediaMensal])
+			VAR __MaxVal = MAXX(__TabMediaMensal, [@MediaMensal])
+			VAR __FormatMinVal =
+			formatar_numero(__MinVal)
+			VAR __FormatMaxVal =
+			formatar_numero(__MaxVal)
+			
+			VAR __MesMin = 
+			MAXX(
+			    FILTER(__TabMediaMensal, [@MediaMensal] = __MinVal),
+			    dim_calendar[mes_nome]
+			)
+			VAR __MesMax = 
+			MAXX(
+			    FILTER(__TabMediaMensal, [@MediaMensal] = __MaxVal),
+			    dim_calendar[mes_nome]
+			)
+			
+			VAR __Texto =
+			__MesMin & " registra o pior saldo médio mensal (" & __FormatMinVal & ") e "
+			& __MesMax & " o melhor (" & __FormatMaxVal & ") ao longo dos 20 anos"
+			
+			RETURN
+			__Texto
+			```
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: 9ac55aa2-caed-4d89-bce2-326066dbe540
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'BC - Subtitulo Nominal vs Real' =
+			
+			VAR __TodosMeses = ALLSELECTED(dim_calendar[mes_ano_nome], dim_calendar[mes_ano_numero])
+			
+			VAR __TopDiffValor =
+			MAXX(
+			    FILTER(__TodosMeses, [$ Balança Comercial Real]),
+			    ABS([$ Balança Comercial Real] - [$ Balanca Comercial])
+			)
+			VAR __FormatTopDiffValor =
+			formatar_numero(__TopDiffValor)
+			
+			VAR __TopDiffMes =
+			MAXX(
+			    FILTER(__TodosMeses, ABS([$ Balança Comercial Real] - [$ Balanca Comercial]) = __TopDiffValor),
+			    dim_calendar[mes_ano_nome]
+			)
+			
+			VAR __Texto =
+			"Ao comparar o valor nominal da balança comercial com o valor corrigido pela CPI (Consumer Price Index), verificamos que a maior distorção entre o valor nominal e o real foi de "
+			& __FormatTopDiffValor
+			& " de dólares em "
+			& __TopDiffMes & "."
+			
+			RETURN
+			__Texto
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: b4d263f5-0990-4ffc-a030-6a205c89f257
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'BC - Titulo Pagina' =
+			
+			VAR __TopBottomBalanca =
+			TOPN(
+			    1,
+			    ALLSELECTED(dim_calendar[mes_ano_nome]),
+			    [$ Balanca Comercial], ASC
+			)
+			VAR __EscalarTopBottom =
+			CONCATENATEX(__TopBottomBalanca, dim_calendar[mes_ano_nome])
+			
+			VAR __ValorTopBottom =
+			CALCULATE(
+			    [$ Balanca Comercial],
+			    __TopBottomBalanca
+			)
+			VAR __FormatValorTopBottom =
+			formatar_numero(__ValorTopBottom)
+			
+			VAR __Texto =
+			"A Balança Comercial de pescado atingiu a mínima histórica em "
+			& __EscalarTopBottom
+			& ", chegando a "
+			& __FormatValorTopBottom
+			& " de dólares."
+			
+			RETURN
+			__Texto
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: 7448e41a-420c-46c0-8952-4f07b6c48575
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'P - Produto Maior Valor Agregado Exportacoes' =
+			
+			CONCATENATEX(
+			    TOPN(
+			        1,
+			        ALLSELECTED(dim_categories[categoria_nome]),
+			        [$ Preco Medio por Quilo Exportacoes], DESC
+			    ),
+			    dim_categories[categoria_nome]
+			)
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: 8fe40a4c-d797-4e0b-b1ff-a44258930a2f
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'P - Produto Maior Valor Agregado Importacoes' =
+			
+			CONCATENATEX(
+			    TOPN(
+			        1,
+			        ALLSELECTED(dim_categories[categoria_nome]),
+			        [$ Preco Medio por Quilo Importacoes], DESC
+			    ),
+			    dim_categories[categoria_nome]
+			)
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: 668eaee3-a29d-4e66-9dc0-76170a3866c3
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'P - Produto Mais Exportado' =
+			
+			CONCATENATEX(
+			    TOPN(
+			        1,
+			        ALLSELECTED(dim_categories[categoria_nome]),
+			        [$ Exportacoes], DESC
+			    ),
+			    dim_categories[categoria_nome]
+			)
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: e561193f-a710-4b81-ab33-d193e485fc25
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'P - Produto Mais Importado' =
+			
+			CONCATENATEX(
+			    TOPN(
+			        1,
+			        ALLSELECTED(dim_categories[categoria_nome]),
+			        [$ Importacoes], DESC
+			    ),
+			    dim_categories[categoria_nome]
+			)
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: 55d01749-c1a9-4983-b1f0-6d9754a9dbde
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'P - Subtitulo Card Mais Exportado' = ```
+			
+			VAR __Data =
+			ALLSELECTED(dim_calendar[mes_ano_nome], dim_calendar[mes_ano_numero])
+			VAR __MinNumero = 
+			MINX(
+			    FILTER(__Data, [$ Exportacoes] > 0), 
+			    dim_calendar[mes_ano_numero]
+			)
+			VAR __MaxNumero = 
+			MAXX(
+			    FILTER(__Data, [$ Exportacoes] > 0), 
+			    dim_calendar[mes_ano_numero]
+			)
+			VAR __MinNome = 
+			MAXX(
+			    FILTER(__Data, dim_calendar[mes_ano_numero] = __MinNumero), 
+			    dim_calendar[mes_ano_nome]
+			)
+			VAR __MaxNome = 
+			MAXX(
+			    FILTER(__Data, dim_calendar[mes_ano_numero] = __MaxNumero), 
+			    dim_calendar[mes_ano_nome]
+			)
+			
+			VAR __Texto =
+			"Lideram as exportações acumuladas no período de "
+			& __MinNome & " - " & __MaxNome
+			
+			RETURN
+			__Texto
+			```
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: c2c2041e-66f7-405f-bbe8-b2004e617b34
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'P - Subtitulo Exportacoes por Categoria' = ```
+			
+			-- CRIA UMA TABELA MOSTRANDO A TOP 1 CATEGORIA DE CADA ANO NAS EXPORTAÇÕES
+			VAR __TabTop1Anos =
+			ADDCOLUMNS(
+			    ALLSELECTED(dim_calendar[ano]),
+			    "@Top1Cat",
+			    CONCATENATEX(
+			        TOPN(
+			            1,
+			            ALLSELECTED(dim_categories[categoria_nome]),
+			            [$ Exportacoes], DESC
+			        ),
+			        dim_categories[categoria_nome]
+			    )
+			)
+			
+			-- RETORNA O LÍDER DE COMÉRCIO NO ANO MAIS RECENTE
+			VAR __AnoMaisRecente =
+			MAXX(__TabTop1Anos, dim_calendar[ano])
+			VAR __Top1CatRecente =
+			MAXX(
+			    FILTER(__TabTop1Anos, dim_calendar[ano] = __AnoMaisRecente),
+			    [@Top1Cat]
+			)
+			
+			-- RETORNA A QUANTO TEMPO O LÍDER MAIS RECENTE ESTÁ NO TOPO
+			VAR __AnoMaisRecenteSemTop1 =
+			MAXX(
+			    FILTER(__TabTop1Anos, [@Top1Cat] <> __Top1CatRecente),
+			    dim_calendar[ano]
+			)
+			VAR __PeriodoLideranca =
+			__AnoMaisRecente - __AnoMaisRecenteSemTop1
+			
+			-- RETORNA O VALOR DO COMÉRCIO ACUMULADO DO TOP 1 MAIS RECENTE
+			VAR __Acc =
+			CALCULATE(
+			    [$ Exportacoes Acc],
+			    FILTER(
+			        dim_categories,
+			        dim_categories[categoria_nome] = __Top1CatRecente
+			    )
+			)
+			VAR __FormatAcc =
+			formatar_numero(__Acc)
+			
+			-- RETORNA A DATA MÍNIMA E MÁXIMA DO PERÍODO SELECIONADO NOS FILTROS
+			VAR __Data =
+			ALLSELECTED(dim_calendar[mes_ano_nome], dim_calendar[mes_ano_numero])
+			VAR __MinNumero = 
+			MINX(
+			    FILTER(__Data, [$ Exportacoes] > 0), 
+			    dim_calendar[mes_ano_numero]
+			)
+			VAR __MaxNumero = 
+			MAXX(
+			    FILTER(__Data, [$ Exportacoes] > 0), 
+			    dim_calendar[mes_ano_numero]
+			)
+			VAR __MinNome = 
+			MAXX(
+			    FILTER(__Data, dim_calendar[mes_ano_numero] = __MinNumero), 
+			    dim_calendar[mes_ano_nome]
+			)
+			VAR __MaxNome = 
+			MAXX(
+			    FILTER(__Data, dim_calendar[mes_ano_numero] = __MaxNumero), 
+			    dim_calendar[mes_ano_nome]
+			)
+			
+			RETURN
+			__Top1CatRecente
+			& " lideram as exportações há "
+			& __PeriodoLideranca
+			& " anos consecutivos e acumularam "
+			& __FormatAcc
+			& " entre "
+			& __MinNome & " - " & __MaxNome & "."
+			```
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: ea30724f-efbf-4acb-b49d-c6418c2b029c
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'P - Subtitulo Importacoes por Categoria' = ```
+			
+			-- CRIA UMA TABELA MOSTRANDO A TOP 1 CATEGORIA DE CADA ANO NAS EXPORTAÇÕES
+			VAR __TabTop1Anos =
+			ADDCOLUMNS(
+			    ALLSELECTED(dim_calendar[ano]),
+			    "@Top1Cat",
+			    CONCATENATEX(
+			        TOPN(
+			            1,
+			            ALLSELECTED(dim_categories[categoria_nome]),
+			            [$ Importacoes], DESC
+			        ),
+			        dim_categories[categoria_nome]
+			    )
+			)
+			
+			-- RETORNA O LÍDER DE COMÉRCIO NO ANO MAIS RECENTE
+			VAR __AnoMaisRecente =
+			MAXX(__TabTop1Anos, dim_calendar[ano])
+			VAR __Top1CatRecente =
+			MAXX(
+			    FILTER(__TabTop1Anos, dim_calendar[ano] = __AnoMaisRecente),
+			    [@Top1Cat]
+			)
+			
+			-- RETORNA A QUANTO TEMPO O LÍDER MAIS RECENTE ESTÁ NO TOPO
+			VAR __AnoMaisRecenteSemTop1 =
+			MAXX(
+			    FILTER(__TabTop1Anos, [@Top1Cat] <> __Top1CatRecente),
+			    dim_calendar[ano]
+			)
+			VAR __PeriodoLideranca =
+			__AnoMaisRecente - __AnoMaisRecenteSemTop1
+			
+			-- RETORNA O VALOR DO COMÉRCIO ACUMULADO DO TOP 1 MAIS RECENTE
+			VAR __Acc =
+			CALCULATE(
+			    [$ Importacoes Acc],
+			    FILTER(
+			        dim_categories,
+			        dim_categories[categoria_nome] = __Top1CatRecente
+			    )
+			)
+			VAR __FormatAcc =
+			formatar_numero(__Acc)
+			
+			-- RETORNA A DATA MÍNIMA E MÁXIMA DO PERÍODO SELECIONADO NOS FILTROS
+			VAR __Data =
+			ALLSELECTED(dim_calendar[mes_ano_nome], dim_calendar[mes_ano_numero])
+			VAR __MinNumero = 
+			MINX(
+			    FILTER(__Data, [$ Importacoes] > 0), 
+			    dim_calendar[mes_ano_numero]
+			)
+			VAR __MaxNumero = 
+			MAXX(
+			    FILTER(__Data, [$ Importacoes] > 0), 
+			    dim_calendar[mes_ano_numero]
+			)
+			VAR __MinNome = 
+			MAXX(
+			    FILTER(__Data, dim_calendar[mes_ano_numero] = __MinNumero), 
+			    dim_calendar[mes_ano_nome]
+			)
+			VAR __MaxNome = 
+			MAXX(
+			    FILTER(__Data, dim_calendar[mes_ano_numero] = __MaxNumero), 
+			    dim_calendar[mes_ano_nome]
+			)
+			
+			RETURN
+			__Top1CatRecente
+			& " lideram as importações há "
+			& __PeriodoLideranca
+			& " anos consecutivos e acumularam "
+			& __FormatAcc
+			& " entre "
+			& __MinNome & " - " & __MaxNome & "."
+			```
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: dd11b975-4e49-4bde-b7a7-465c54ffaed0
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'P - Subtitulo Preco por Quilo Anual Exportacoes' =
+			
+			VAR __Media =
+			CALCULATE(
+			    [$ Preco Medio por Quilo Exportacoes],
+			    ALLSELECTED(dim_calendar[ano])
+			)
+			VAR __PicoValor =
+			MAXX(
+			    ALLSELECTED(dim_calendar[ano]),
+			    [$ Preco Medio por Quilo Exportacoes]
+			)
+			VAR __PicoAno =
+			CONCATENATEX(
+			    TOPN(
+			        1,
+			        ALLSELECTED(dim_calendar[ano]),
+			        [$ Preco Medio por Quilo Exportacoes], DESC
+			    ),
+			    dim_calendar[ano]
+			)
+			
+			RETURN
+			"Média geral de "
+			& FORMAT(__Media, "#0.00 U$/kg")
+			& " e pico de "
+			& FORMAT(__PicoValor, "#0.00 U$/kg")
+			& " no ano de "
+			& __PicoAno & "."
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: 68f8ed59-e41b-4d2e-803a-d83621a2abec
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'P - Subtitulo Preco por Quilo Anual Importacoes' =
+			
+			VAR __Media =
+			CALCULATE(
+			    [$ Preco Medio por Quilo Importacoes],
+			    ALLSELECTED(dim_calendar[ano])
+			)
+			VAR __PicoValor =
+			MAXX(
+			    ALLSELECTED(dim_calendar[ano]),
+			    [$ Preco Medio por Quilo Importacoes]
+			)
+			VAR __PicoAno =
+			CONCATENATEX(
+			    TOPN(
+			        1,
+			        ALLSELECTED(dim_calendar[ano]),
+			        [$ Preco Medio por Quilo Importacoes], DESC
+			    ),
+			    dim_calendar[ano]
+			)
+			
+			RETURN
+			"Média geral de "
+			& FORMAT(__Media, "#0.00 U$/kg")
+			& " e pico de "
+			& FORMAT(__PicoValor, "#0.00 U$/kg")
+			& " no ano de "
+			& __PicoAno & "."
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: d395b253-158d-4da8-8a68-1cf230043516
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'P - Subtitulo Preco por Quilo Categoria Exportacoes' =
+			
+			VAR __Top1Cat = [P - Produto Maior Valor Agregado Exportacoes]
+			VAR __Top1CatValor =
+			CALCULATE(
+			    [$ Preco Medio por Quilo Exportacoes],
+			    dim_categories[categoria_nome] = __Top1Cat
+			)
+			
+			RETURN
+			__Top1Cat
+			& " é a categoria exportada com maior valor agregado ("
+			& FORMAT(__Top1CatValor, "#0.00 U$/kg")
+			& ")."
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: 2e0e170b-bfd9-4a09-9bc1-7aee3aea20e4
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'P - Subtitulo Preco por Quilo Categoria Importacoes' =
+			
+			VAR __Top1Cat = [P - Produto Maior Valor Agregado Importacoes]
+			VAR __Top1CatValor =
+			CALCULATE(
+			    [$ Preco Medio por Quilo Importacoes],
+			    dim_categories[categoria_nome] = __Top1Cat
+			)
+			
+			RETURN
+			__Top1Cat
+			& " é a categoria importada com maior valor agregado ("
+			& FORMAT(__Top1CatValor, "#0.00 U$/kg")
+			& ")."
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: e26645df-b4c6-4761-86eb-85d842759977
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'P - Subtitulo Produto Maior Valor Agregado' =
+			
+			VAR __Top1Exp =
+			TOPN(
+			    1,
+			    ALLSELECTED(dim_categories[categoria_nome]),
+			    [$ Exportacoes], DESC
+			)
+			VAR __Top1ValorPorQuilo =
+			TOPN(
+			    1,
+			    ALLSELECTED(dim_categories[categoria_nome]),
+			    [$ Preco Medio por Quilo Exportacoes], DESC
+			)
+			
+			VAR __ValorTop1Exp =
+			CALCULATE(
+			    [$ Preco Medio por Quilo Exportacoes],
+			    __Top1Exp
+			)
+			VAR __ValorTop1PorQuilo =
+			CALCULATE(
+			    [$ Preco Medio por Quilo Exportacoes],
+			    __Top1ValorPorQuilo
+			)
+			
+			VAR __Relacao =
+			DIVIDE(__ValorTop1PorQuilo, __ValorTop1Exp)
+			
+			VAR __Texto =
+			"É a categoria de maior valor agregado, valendo "
+			& FORMAT(__Relacao, "#0x")
+			& " mais por quilo."
+			
+			RETURN
+			__Texto
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: 82947ccf-29c7-4e78-9ce1-a19269ed5f8b
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'P - Titulo Produto Maior Valor Agregado' =
+			
+			"...mas " & [P - Produto Maior Valor Agregado Exportacoes]
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: a1610dd2-db95-438e-8ffb-25ddcc429480
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'P - Titulo Produto Mais Importado' =
+			
+			"...e " & [P - Produto Mais Importado]
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: 039b937e-0ec2-493b-b557-1b629b719fa6
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'PC - Faixa Alta Medidor HHI' = 0.75
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: ae8eb1e2-e52d-49f1-a1a1-5e1e103fc866
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'PC - Faixa Baixa Medidor HHI' = 0.15
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: fbee5d4c-92ae-40f9-9ce5-52d305a76a02
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'PC - Faixa Media Medidor HHI' = 0.1
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: 8698be7d-020b-494b-bb0c-d31295d351c7
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'PC - Maior Pais Parceiro Exportacoes' =
+			
+			CONCATENATEX(
+			    TOPN(
+			        1,
+			        ALLSELECTED(dim_countries[pais_nome]),
+			        [$ Exportacoes], DESC
+			    ),
+			    dim_countries[pais_nome]
+			)
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: c84cbd28-7748-425f-bab0-f83023e90fcf
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'PC - Maior Pais Parceiro Importacoes' =
+			
+			CONCATENATEX(
+			    TOPN(
+			        1,
+			        ALLSELECTED(dim_countries[pais_nome]),
+			        [$ Importacoes], DESC
+			    ),
+			    dim_countries[pais_nome]
+			)
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: 70054dad-e786-47e7-9ce6-3040ffb08dc8
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'PC - Subtitulo HHI' =
+			
+			VAR __HHIInicio =
+			    CALCULATE(
+			        [% HHI Pais Dinamico],
+			        FILTER(
+			            ALL(dim_calendar),
+			            dim_calendar[ano] = MIN(dim_calendar[ano])
+			        )
+			    )
+			
+			VAR __HHIFim =
+			    CALCULATE(
+			        [% HHI Pais Dinamico],
+			        FILTER(
+			            ALL(dim_calendar),
+			            dim_calendar[ano] = MAX(dim_calendar[ano])
+			        )
+			    )
+			
+			VAR __Variacao = __HHIFim - __HHIInicio
+			
+			VAR __AnoInicio = MIN(dim_calendar[ano])
+			VAR __AnoFim = MAX(dim_calendar[ano])
+			
+			VAR __TextoDinamico =
+			    IF(
+			        __Variacao < 0,
+			        "o mercado se diversificou " & FORMAT(ABS(__Variacao), "#0.0%") & " desde " & __AnoInicio,
+			        "a concentração aumentou " & FORMAT(__Variacao, "#0.0%") & " desde " & __AnoInicio
+			    )
+			
+			VAR __TextoFinal =
+			    "HHI: índice de concentração de mercado (quanto maior, mais dependente de poucos parceiros) indica que "
+			    & __TextoDinamico
+			
+			RETURN
+			    __TextoFinal
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: d6ec7084-0a6e-4efe-bb09-56d146faa7bf
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'PC - Subtitulo Tornado' = ```
+			
+			----------------------------------
+			-- MEDIDAS PARA EXPORTAÇÕES
+			----------------------------------
+			VAR __TopExpTab =
+			    INDEX(
+			        1,
+			        ALLSELECTED(dim_countries[pais_nome]),
+			        ORDERBY([$ Exportacoes], DESC)
+			    )
+			
+			VAR __TopExpNome =
+			    SELECTCOLUMNS(__TopExpTab, "@Nome", dim_countries[pais_nome])
+			
+			VAR __TabExpComPct =
+			    ADDCOLUMNS(
+			        ALLSELECTED(dim_countries[pais_nome]),
+			        "@Pct",
+			        CALCULATE([% Participacao no Total Exportacoes])
+			    )
+			
+			VAR __TopExpPct = 
+			    MAXX(
+			        TOPN(1, __TabExpComPct, [@Pct], DESC),
+			        [@Pct]
+			    )
+			    
+			----------------------------------
+			-- MEDIDAS PARA IMPORTAÇÕES
+			----------------------------------
+			VAR __TopImpTab =
+			    INDEX(
+			        1,
+			        ALLSELECTED(dim_countries[pais_nome]),
+			        ORDERBY([$ Importacoes], DESC)
+			    )
+			
+			VAR __TopImpNome =
+			    SELECTCOLUMNS(__TopImpTab, "@Nome", dim_countries[pais_nome])
+			
+			VAR __TabImpComPct =
+			    ADDCOLUMNS(
+			        ALLSELECTED(dim_countries[pais_nome]),
+			        "@Pct",
+			        CALCULATE([% Participacao no Total Importacoes])
+			    )
+			
+			VAR __TopImpPct = 
+			    MAXX(
+			        TOPN(1, __TabImpComPct, [@Pct], DESC),
+			        [@Pct]
+			    )
+			
+			VAR __N = [aux_topn Value]
+			VAR __Texto =
+			    "Top " & __N & " parceiros — " 
+			    & __TopExpNome & " lidera as exportações (" & FORMAT(__TopExpPct, "0,0%") & ") "
+			    & "e " & __TopImpNome & " as importações (" & FORMAT(__TopImpPct, "0,0%") & ")"
+			
+			RETURN
+			__Texto
+			```
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: c8af0973-9c8e-4d89-adc4-55c6a328a888
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'PC - Titulo Card Exportacoes' =
+			
+			VAR __CategoriasSelecionadas = VALUES(dim_categories[categoria_nome])
+			VAR __QtdSelecionadas = COUNTROWS(__CategoriasSelecionadas)
+			VAR __UmaCategoria = SELECTEDVALUE(dim_categories[categoria_nome])
+			
+			VAR __TabComPct =
+			ADDCOLUMNS(
+			    ALLSELECTED(dim_countries[pais_nome]),
+			    "@Pct",
+			    CALCULATE([% Participacao no Total Exportacoes])
+			)
+			VAR __Top1Pct =
+			MAXX(
+			    TOPN(1, __TabComPct, [@Pct], DESC),
+			    [@Pct]
+			)
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    __QtdSelecionadas = COUNTROWS(ALL(dim_categories[categoria_nome])),
+			        "Destino de " & FORMAT(__Top1Pct, "#0.00%") & " de tudo que o Brasil exporta em pescado",
+			    __QtdSelecionadas = 1,
+			        "Destino de " & FORMAT(__Top1Pct, "#0.00%") & " de tudo que o Brasil exporta em " & __UmaCategoria,
+			    "Destino de " & FORMAT(__Top1Pct, "#0.00%") & " de tudo que o Brasil exporta para as categorias selecionadas"
+			)
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: 1ad24980-f337-41da-9084-7f0909e2a470
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'PC - Titulo Card Importacoes' =
+			
+			VAR __CategoriasSelecionadas = VALUES(dim_categories[categoria_nome])
+			VAR __QtdSelecionadas = COUNTROWS(__CategoriasSelecionadas)
+			VAR __UmaCategoria = SELECTEDVALUE(dim_categories[categoria_nome])
+			
+			VAR __TabComPct =
+			ADDCOLUMNS(
+			    ALLSELECTED(dim_countries[pais_nome]),
+			    "@Pct",
+			    CALCULATE([% Participacao no Total Importacoes])
+			)
+			VAR __Top1Pct =
+			MAXX(
+			    TOPN(1, __TabComPct, [@Pct], DESC),
+			    [@Pct]
+			)
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    __QtdSelecionadas = COUNTROWS(ALL(dim_categories[categoria_nome])),
+			        "Destino de " & FORMAT(__Top1Pct, "#0.00%") & " de tudo que o Brasil importa em pescado",
+			    __QtdSelecionadas = 1,
+			        "Destino de " & FORMAT(__Top1Pct, "#0.00%") & " de tudo que o Brasil importa em " & __UmaCategoria,
+			    "Destino de " & FORMAT(__Top1Pct, "#0.00%") & " de tudo que o Brasil importa para as categorias selecionadas"
+			)
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: a8d7732b-5d93-4ade-9c80-05b5426fcba4
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'PC - Titulo HHI' =
+			
+			VAR __FlagSelec =
+			    IF(
+			        SELECTEDVALUE(fact_trades[tipo_comercio]) = "imp",
+			        "Importações",
+			        "Exportações"
+			    )
+			
+			VAR __Texto =
+			"Análise de Concentração de Mercado (HHI) para "
+			& __FlagSelec
+			& " - Evolução Anual"
+			
+			RETURN
+			__Texto
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: 1f2c646a-335c-4f6f-a256-eac1df51d71e
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'PC - Titulo Visual Tornado' = ```
+			
+			VAR __TopN = [aux_topn Value]
+			
+			VAR __Texto = 
+			"Importações e Exportações dos "
+			& __TopN 
+			& " maiores parceiros comerciais do Brasil"
+			
+			RETURN
+			__Texto
+			```
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: 704d14b1-3761-40cf-96b0-69ba679549ad
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'PC - Top N Market Share Exportacoes Positivo' = [Top N Market Share Exportacoes (por Corrente)]
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: dad50434-c9d0-4bed-8152-1827ace2fd78
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'PC - Top N Market Share Importacoes Negativo' = - [Top N Market Share Importacoes (por Corrente)]
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: 15bc1e42-8668-4122-aeeb-379ac98f51b5
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'VG - Rotulo Taxa de Cobertura YoY' =
+			
+			VAR __Variacao = [p.p. Taxa de Cobertura YoY]
+			
+			VAR __Result =
+			SWITCH(
+			    TRUE(),
+			    __Variacao > 0, FORMAT(__Variacao, "+0.0") & " p.p.",
+			    __Variacao < 0, FORMAT(__Variacao, "-0.0") & " p.p.",
+			    FORMAT(__Variacao, "0.0") & " p.p."
+			)
+			
+			RETURN
+			__Result
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: 73a4ec87-8b04-4638-b2e4-e49f106c438c
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'VG - Subtitulo Produtos' =
+			
+			-- Busca todas as categorias
+			VAR __TodasCategorias =
+			ALLSELECTED(dim_categories[categoria_nome], dim_categories[categoria_id])
+			
+			-- Extrai o Top 1 e o Top 2 por valor de exportações
+			VAR __Top1 =
+			TOPN(1, __TodasCategorias, [$ Exportacoes], DESC)
+			VAR __SemTop1 =
+			EXCEPT(__TodasCategorias, __Top1)
+			VAR __Top2 =
+			TOPN(1, __SemTop1, [$ Exportacoes], DESC)
+			
+			-- Assegura um valor escalar para inserir no texto
+			VAR __EscalarTop1Nome = CONCATENATEX(__Top1, dim_categories[categoria_nome])
+			VAR __EscalarTop1Id = CONCATENATEX(__Top1, dim_categories[categoria_id])
+			
+			VAR __EscalarTop2Nome = CONCATENATEX(__Top2, dim_categories[categoria_nome])
+			VAR __EscalarTop2Id = CONCATENATEX(__Top2, dim_categories[categoria_id])
+			
+			--Extrai o percentual do Top 1 e do Top 2
+			VAR __Top1Percent =
+			FORMAT(
+			    CALCULATE(
+			        [% Participacao no Total Exportacoes],
+			        __Top1
+			    ),
+			    "#0.0%"
+			)
+			VAR __Top2Percent =
+			FORMAT(
+			    CALCULATE(
+			        [% Participacao no Total Exportacoes],
+			        __Top2
+			    ),
+			    "#0.0%"
+			)
+			
+			VAR __Texto =
+			"A categoria "
+			& __EscalarTop1Nome & " (" & __EscalarTop1Id & ") domina "
+			&  __Top1Percent
+			& " do mercado de exportações, seguida de "
+			& __EscalarTop2Nome & " (" & __EscalarTop2Id & "), com "
+			& __Top2Percent & "."
+			
+			RETURN
+			__Texto
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: d91322f6-decc-41ce-b26e-0991707a2109
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'VG - Subtitulo Top N Estados' = ```
+			
+			VAR __Data =
+			ALLSELECTED(dim_calendar[mes_ano_nome], dim_calendar[mes_ano_numero])
+			
+			VAR __MinNumero = 
+			MINX(
+			    FILTER(__Data, [$ Exportacoes] > 0), 
+			    dim_calendar[mes_ano_numero]
+			)
+			
+			VAR __MaxNumero = 
+			MAXX(
+			    FILTER(__Data, [$ Exportacoes] > 0), 
+			    dim_calendar[mes_ano_numero]
+			)
+			
+			VAR __MinNome = 
+			MAXX(
+			    FILTER(__Data, dim_calendar[mes_ano_numero] = __MinNumero), 
+			    dim_calendar[mes_ano_nome]
+			)
+			
+			VAR __MaxNome = 
+			MAXX(
+			    FILTER(__Data, dim_calendar[mes_ano_numero] = __MaxNumero), 
+			    dim_calendar[mes_ano_nome]
+			)
+			
+			VAR __Texto =
+			"Ranking dos estados que mais exportaram, em dólares, no período de "
+			& __MinNome & " - " & __MaxNome
+			
+			RETURN
+			__Texto
+			```
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: 5b3cd1ee-e5ad-42d3-bbc2-eb9d8ae99662
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'VG - Subtitulo Top N Paises' = ```
+			
+			------------------------------------------
+			-- CALCULANDO VALORES
+			------------------------------------------
+			VAR __Pais =
+			TOPN(
+			    1,
+			    ALLSELECTED(dim_countries[pais_nome]),
+			    [$ Exportacoes], DESC
+			)
+			VAR __Valor =
+			CALCULATE(
+			    [$ Exportacoes],
+			    __Pais
+			)
+			VAR __FormatValor =
+			formatar_numero(__Valor)
+			VAR __Pct =
+			CALCULATE(
+			    [% Participacao no Total Exportacoes],
+			    __Pais
+			)
+			
+			------------------------------------------
+			-- CALCULANDO RANGE DE DATAS
+			------------------------------------------
+			VAR __Data =
+			ALLSELECTED(dim_calendar[mes_ano_nome], dim_calendar[mes_ano_numero])
+			VAR __MinNumero = 
+			MINX(
+			    FILTER(__Data, [$ Exportacoes] > 0), 
+			    dim_calendar[mes_ano_numero]
+			)
+			VAR __MaxNumero = 
+			MAXX(
+			    FILTER(__Data, [$ Exportacoes] > 0), 
+			    dim_calendar[mes_ano_numero]
+			)
+			VAR __MinNome = 
+			MAXX(
+			    FILTER(__Data, dim_calendar[mes_ano_numero] = __MinNumero), 
+			    dim_calendar[mes_ano_nome]
+			)
+			VAR __MaxNome = 
+			MAXX(
+			    FILTER(__Data, dim_calendar[mes_ano_numero] = __MaxNumero), 
+			    dim_calendar[mes_ano_nome]
+			)
+			
+			VAR __Texto =
+			__Pais
+			& " lidera as exportações brasileiras de pescado, absorvendo " 
+			& FORMAT(__Pct, "0.0%")
+			& " do total, equivalente a U$ " 
+			& __FormatValor
+			& " durante o período de "
+			& __MinNome & " - " & __MaxNome
+			
+			RETURN
+			__Texto
+			```
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: 27db10e7-1124-4294-a8f6-9d6c6928e253
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'VG - Subtitulo Visual Serie Historica' = ```
+			
+			VAR __MaxImp =
+			MAXX(
+			    ALL(dim_calendar[mes_ano_nome]),
+			    [$ Importacoes]
+			)
+			
+			VAR __MaxData = 
+			TOPN(
+			    1,
+			    ALL(dim_calendar[mes_ano_nome]),
+			    [$ Importacoes], DESC
+			)
+			VAR __MaxDataEscalar =
+			CONCATENATEX(__MaxData, dim_calendar[mes_ano_nome])
+			
+			VAR __FormatMax =
+			formatar_numero(__MaxDataEscalar)
+			
+			VAR __Texto =
+			"O Brasil se destaca como um importador líquido de pescado, atingindo a máxima histórica de "
+			& __FormatMax
+			& " de dólares em "
+			& __MaxDataEscalar
+			
+			RETURN
+			__Texto
+			```
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: 5c677d78-d8b9-4d16-940c-b40202ce759b
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'VG - Titulo Top N Estados' =
+			
+			VAR __TopNValor = [aux_topn Value]
+			
+			VAR __TextoTop1 =
+			"Quem é o Top 1 estado que mais exporta?"
+			
+			VAR __TextoTopMaiorQue1 =
+			"Quem são os Top "
+			& __TopNValor
+			& " estados que mais exportam?"
+			
+			VAR __Texto =
+			IF(
+			    __TopNValor > 1,
+			    __TextoTopMaiorQue1,
+			    __TextoTop1
+			)
+			
+			RETURN
+			__Texto
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: 1b52fb57-fcde-406a-a68c-bb5c7d26e27c
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	measure 'VG - Titulo Top N Paises' =
+			
+			VAR __TopNValor = [aux_topn Value]
+			
+			VAR __TextoTop1 =
+			"Quem é o principal parceiro comercial do Brasil nas exportações?"
+			
+			VAR __TextoTopMaiorQue1 =
+			"Quem são os Top "
+			& __TopNValor
+			& " parceiros comerciais do Brasil nas exportações?"
+			
+			VAR __Texto =
+			IF(
+			    __TopNValor > 1,
+			    __TextoTopMaiorQue1,
+			    __TextoTop1
+			)
+			
+			RETURN
+			__Texto
+		displayFolder: Medidas\07. Storytelling
+		lineageTag: 41e3907b-e597-4f6a-b123-2e944038e8e9
+
+		changedProperty = DisplayFolder
+
+		changedProperty = Name
+
+	column comercio_data
+		dataType: dateTime
+		formatString: General Date
+		displayFolder: Colunas
+		lineageTag: e37f9b2e-1ffa-431e-a69d-dc81acfc73ec
+		sourceLineageTag: comercio_data
+		summarizeBy: none
+		sourceColumn: comercio_data
+
+		changedProperty = DisplayFolder
+
+		annotation SummarizationSetBy = Automatic
+
+	column municipio_id
+		dataType: string
+		displayFolder: Colunas
+		lineageTag: 546bc775-550f-4ce4-811f-8fac65648621
+		sourceLineageTag: municipio_id
+		summarizeBy: none
+		sourceColumn: municipio_id
+
+		changedProperty = DisplayFolder
+
+		annotation SummarizationSetBy = Automatic
+
+	column pais_id
+		dataType: string
+		displayFolder: Colunas
+		lineageTag: a6c26a05-cc25-4ef2-b7ca-1db8abf5446d
+		sourceLineageTag: pais_id
+		summarizeBy: none
+		sourceColumn: pais_id
+
+		changedProperty = DisplayFolder
+
+		annotation SummarizationSetBy = Automatic
+
+	column categoria_id
+		dataType: string
+		displayFolder: Colunas
+		lineageTag: 29fd2822-387e-4d85-a13f-17ae6c5c9dfe
+		sourceLineageTag: categoria_id
+		summarizeBy: none
+		sourceColumn: categoria_id
+
+		changedProperty = DisplayFolder
+
+		annotation SummarizationSetBy = Automatic
+
+	column valor_nominal
+		dataType: double
+		displayFolder: Colunas
+		lineageTag: 5f94ff8a-e758-4553-ae3b-1e26e9295cfe
+		sourceLineageTag: valor_nominal
+		summarizeBy: none
+		sourceColumn: valor_nominal
+
+		changedProperty = SummarizeBy
+
+		changedProperty = DisplayFolder
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column valor_real
+		dataType: double
+		displayFolder: Colunas
+		lineageTag: 7293e011-8b4e-424e-9b23-fed4fc8410bb
+		sourceLineageTag: valor_real
+		summarizeBy: none
+		sourceColumn: valor_real
+
+		changedProperty = SummarizeBy
+
+		changedProperty = DisplayFolder
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column peso_liquido
+		dataType: double
+		displayFolder: Colunas
+		lineageTag: fc089798-d5bf-478f-a06b-3f77cd9e2e31
+		sourceLineageTag: peso_liquido
+		summarizeBy: none
+		sourceColumn: peso_liquido
+
+		changedProperty = SummarizeBy
+
+		changedProperty = DisplayFolder
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tipo_comercio
+		dataType: string
+		displayFolder: Colunas
+		lineageTag: 7db38376-fdb3-447b-a74a-542fafb7a2e0
+		sourceLineageTag: tipo_comercio
+		summarizeBy: none
+		sourceColumn: tipo_comercio
+
+		changedProperty = DisplayFolder
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_from
+		dataType: dateTime
+		formatString: General Date
+		displayFolder: Colunas
+		lineageTag: 973561b8-4d42-4414-9647-f42418657a51
+		sourceLineageTag: date_from
+		summarizeBy: none
+		sourceColumn: date_from
+
+		changedProperty = DisplayFolder
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_to
+		dataType: dateTime
+		formatString: General Date
+		displayFolder: Colunas
+		lineageTag: 5f723590-53f2-4e41-82a1-6d18da222d51
+		sourceLineageTag: date_to
+		summarizeBy: none
+		sourceColumn: date_to
+
+		changedProperty = DisplayFolder
+
+		annotation SummarizationSetBy = Automatic
+
+	column file_path
+		dataType: string
+		displayFolder: Colunas
+		lineageTag: 428e85c9-1413-4a4e-bb56-588c03f2b851
+		sourceLineageTag: file_path
+		summarizeBy: none
+		sourceColumn: file_path
+
+		changedProperty = DisplayFolder
+
+		annotation SummarizationSetBy = Automatic
+
+	column created_at
+		dataType: dateTime
+		formatString: General Date
+		displayFolder: Colunas
+		lineageTag: 7d8a04cc-9a9c-484e-9996-ff8ca8ea71eb
+		sourceLineageTag: created_at
+		summarizeBy: none
+		sourceColumn: created_at
+
+		changedProperty = DisplayFolder
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_trades = entity
+		mode: directLake
+		source
+			entityName: fact_trades
+			schemaName: gold
+			expressionSource: 'DirectLake - lh_fish_trade'
+
