@@ -109,6 +109,35 @@
             "type": "Expression"
           }
         }
+      },
+      {
+        "name": "calendar",
+        "type": "TridentNotebook",
+        "dependsOn": [
+          {
+            "activity": "bronze_to_silver",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "notebookId": {
+            "value": "@pipeline().libraryVariables.vl_variables_notebook_calendar",
+            "type": "Expression"
+          },
+          "workspaceId": {
+            "value": "@pipeline().libraryVariables.vl_variables_workspace_id",
+            "type": "Expression"
+          }
+        }
       }
     ],
     "libraryVariables": {
@@ -135,6 +164,11 @@
       "vl_variables_notebook_silver_to_gold_id": {
         "type": "String",
         "variableName": "notebook_silver_to_gold_id",
+        "libraryName": "vl_variables"
+      },
+      "vl_variables_notebook_calendar": {
+        "type": "String",
+        "variableName": "notebook_calendar",
         "libraryName": "vl_variables"
       }
     }

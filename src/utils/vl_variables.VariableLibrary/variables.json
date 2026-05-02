@@ -60,6 +60,12 @@
       "note": "",
       "type": "String",
       "value": ""
+    },
+    {
+      "name": "notebook_calendar",
+      "note": "",
+      "type": "String",
+      "value": ""
     }
   ]
 }
