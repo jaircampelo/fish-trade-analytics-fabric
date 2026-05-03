@@ -121,14 +121,14 @@
             "centerLongitude": {
               "expr": {
                 "Literal": {
-                  "Value": "-0.2799352430996578D"
+                  "Value": "-51.415355000000005D"
                 }
               }
             },
             "centerLatitude": {
               "expr": {
                 "Literal": {
-                  "Value": "5.684341886080802e-14D"
+                  "Value": "-15.128359924415676D"
                 }
               }
             },
@@ -205,7 +205,14 @@
             "zoom": {
               "expr": {
                 "Literal": {
-                  "Value": "0.33D"
+                  "Value": "3D"
+                }
+              }
+            },
+            "autoZoom": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
                 }
               }
             }

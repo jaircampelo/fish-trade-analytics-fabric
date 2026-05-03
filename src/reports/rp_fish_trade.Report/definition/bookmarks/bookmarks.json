@@ -1,0 +1,66 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmarksMetadata/1.0.0/schema.json",
+  "items": [
+    {
+      "name": "b05e63ade5597337cb03"
+    },
+    {
+      "name": "3b662a4b23ce04de2050"
+    },
+    {
+      "name": "dae9894f38817612a0c0"
+    },
+    {
+      "name": "3ae041148500dd47d6da"
+    },
+    {
+      "name": "d381fad001e100ae01de"
+    },
+    {
+      "name": "c34491e5050a86a77683"
+    },
+    {
+      "name": "3d5769e01c1d2e4191b1"
+    },
+    {
+      "name": "57cee420b0c4e3d0bc05"
+    },
+    {
+      "name": "b17b841020d316959878"
+    },
+    {
+      "name": "fdd8ab286e6005043102",
+      "displayName": "P - Analise Flow",
+      "children": [
+        "8ac8c3352b00539cc7c6",
+        "14a7ab739a500453ace0"
+      ]
+    },
+    {
+      "name": "c523d985e0945b53231c"
+    },
+    {
+      "name": "fff806744b36bb846539"
+    },
+    {
+      "name": "f78b91f24a1b120b8013"
+    },
+    {
+      "name": "79ada3e4374e309ddb80"
+    },
+    {
+      "name": "5db20b5041783db15300"
+    },
+    {
+      "name": "1d986a7b421ea965d1cc"
+    },
+    {
+      "name": "3f54b828d87c73a42996",
+      "displayName": "B - Analise Flow",
+      "children": [
+        "ac8252d9080623d9212b",
+        "d3b52463a493320b6c2a"
+      ]
+    }
+  ]
+}

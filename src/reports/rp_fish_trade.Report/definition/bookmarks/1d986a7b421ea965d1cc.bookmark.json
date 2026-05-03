@@ -1,0 +1,1003 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmark/2.1.0/schema.json",
+  "displayName": "B - Limpar Filtros",
+  "name": "1d986a7b421ea965d1cc",
+  "options": {
+    "applyOnlyToTargetVisuals": true,
+    "targetVisualNames": [
+      "87c42a2f6b2694ca82a9",
+      "37fa8e9aa11cb9905503",
+      "6a15e410e0877cba55b3",
+      "61e43ccb385c888d3d43",
+      "b0cf2ca853800c147bb9",
+      "7dc1702b03ba9250779e"
+    ]
+  },
+  "explorationState": {
+    "version": "1.3",
+    "activeSection": "db37cd6cd5780abb690b",
+    "sections": {
+      "db37cd6cd5780abb690b": {
+        "visualContainers": {
+          "03dc9e8ade53eb8ad787": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "09e6a6cddec6409bba6e": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "64754d00a114694db08b",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dim_cities"
+                        }
+                      },
+                      "Property": "estado_nome"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "441fe53d930d05700aba",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "fact_trades"
+                        }
+                      },
+                      "Property": "$ Exportacoes"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "azureMap",
+              "objects": {},
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dim_cities"
+                        }
+                      },
+                      "Property": "estado_nome"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "1b030fd3208504880454": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "145d042d00433d500503",
+                  "type": "Advanced",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "aux_topn"
+                        }
+                      },
+                      "Property": "aux_topn"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "general": [
+                    {
+                      "properties": {
+                        "filter": {
+                          "filter": {
+                            "Version": 2,
+                            "From": [
+                              {
+                                "Name": "a",
+                                "Entity": "aux_topn",
+                                "Type": 0
+                              }
+                            ],
+                            "Where": [
+                              {
+                                "Condition": {
+                                  "Comparison": {
+                                    "ComparisonKind": 0,
+                                    "Left": {
+                                      "Column": {
+                                        "Expression": {
+                                          "SourceRef": {
+                                            "Source": "a"
+                                          }
+                                        },
+                                        "Property": "aux_topn"
+                                      }
+                                    },
+                                    "Right": {
+                                      "Literal": {
+                                        "Value": "5D"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "data": [
+                    {
+                      "properties": {
+                        "numericStart": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "5D"
+                            }
+                          }
+                        },
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Single'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "orderBy": [
+                {
+                  "Direction": 1,
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "aux_topn"
+                        }
+                      },
+                      "Property": "TopN"
+                    }
+                  }
+                }
+              ],
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "aux_topn"
+                        }
+                      },
+                      "Property": "aux_topn"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "2894e19f4e576a3c724e": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "37fa8e9aa11cb9905503": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "08eda104c040cb7c3ba5",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dim_countries"
+                        }
+                      },
+                      "Property": "pais_nome"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dim_countries"
+                        }
+                      },
+                      "Property": "pais_nome"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "3b50afea200310da39b4": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "36b18e47b1d5d60301a0",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dim_cities"
+                        }
+                      },
+                      "Property": "estado_nome"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "1a0b12fb05dbb7643aa2",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "fact_trades"
+                        }
+                      },
+                      "Property": "# Qtd Municipios Exportacoes"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "clusteredBarChart",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "fact_trades"
+                        }
+                      },
+                      "Property": "# Qtd Municipios Exportacoes"
+                    }
+                  }
+                }
+              ],
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dim_cities"
+                        }
+                      },
+                      "Property": "estado_nome"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "3bf8cfcf0c8448db0224": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "48ee4d5f7a5d03d67200": {
+            "singleVisual": {
+              "visualType": "bookmarkNavigator",
+              "objects": {}
+            }
+          },
+          "4b97b17b741b42eb9d49": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "61e43ccb385c888d3d43": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "6ff37549c38711263746",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dim_cities"
+                        }
+                      },
+                      "Property": "regiao"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dim_cities"
+                        }
+                      },
+                      "Property": "regiao"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "6565e3dcee307ba4c150": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "945025f0e7ab0de51d09",
+                  "type": "Advanced",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "f",
+                        "Entity": "fact_trades",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "Not": {
+                            "Expression": {
+                              "Comparison": {
+                                "ComparisonKind": 0,
+                                "Left": {
+                                  "Measure": {
+                                    "Expression": {
+                                      "SourceRef": {
+                                        "Source": "f"
+                                      }
+                                    },
+                                    "Property": "Top N % HHI Estado Exportacoes"
+                                  }
+                                },
+                                "Right": {
+                                  "Literal": {
+                                    "Value": "null"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "fact_trades"
+                        }
+                      },
+                      "Property": "Top N % HHI Estado Exportacoes"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "fd437bce03c3dae16bc8",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dim_cities"
+                        }
+                      },
+                      "Property": "estado_nome"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "6458119147007ea35ebb",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "fact_trades"
+                        }
+                      },
+                      "Property": "Ranking % HHI Exportacoes por Estado"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "clusteredBarChart",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 1,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "fact_trades"
+                        }
+                      },
+                      "Property": "Ranking % HHI Exportacoes por Estado"
+                    }
+                  }
+                }
+              ],
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dim_cities"
+                        }
+                      },
+                      "Property": "estado_nome"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "6a15e410e0877cba55b3": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "c28b85e5950d2306b68c",
+                  "type": "Advanced",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dim_calendar"
+                        }
+                      },
+                      "Property": "ano"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "b97d15907c360c7d19bb",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dim_calendar"
+                        }
+                      },
+                      "Property": "mes_nome_abreviado"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dim_calendar"
+                        }
+                      },
+                      "Property": "ano"
+                    }
+                  }
+                ]
+              },
+              "expansionStates": [
+                {
+                  "roles": [
+                    "Values"
+                  ],
+                  "levels": [
+                    {
+                      "queryRefs": [
+                        "dim_calendar.ano"
+                      ],
+                      "isCollapsed": true,
+                      "isPinned": true
+                    },
+                    {
+                      "queryRefs": [
+                        "dim_calendar.mes_nome_abreviado"
+                      ],
+                      "isCollapsed": true
+                    }
+                  ],
+                  "root": {
+                    "identityValues": []
+                  }
+                }
+              ]
+            }
+          },
+          "746f21e833ced8ab739a": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "76a82cf9dc08e44b7ad3": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "f183384d410107de85b8",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "fact_trades"
+                        }
+                      },
+                      "Property": "_Dados Disponiveis"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "cardVisual",
+              "objects": {}
+            }
+          },
+          "7dc1702b03ba9250779e": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "3cef57670ceae1b70ac3",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dim_cities"
+                        }
+                      },
+                      "Property": "municipio_nome"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dim_cities"
+                        }
+                      },
+                      "Property": "municipio_nome"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "81b9d11beca984059883": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "cc3b044607dd7c0561c4",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "fact_trades"
+                        }
+                      },
+                      "Property": "B - Maior Estado Exportacoes"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "ebe639d26ed00ed43e66",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "fact_trades"
+                        }
+                      },
+                      "Property": "B - Maior Estado Importacoes"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "cardVisual",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 1,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "fact_trades"
+                        }
+                      },
+                      "Property": "PC - Maior Pais Parceiro Exportacoes"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "87c42a2f6b2694ca82a9": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "081553a0cb4de27ab3e9",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dim_categories"
+                        }
+                      },
+                      "Property": "categoria_nome"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dim_categories"
+                        }
+                      },
+                      "Property": "categoria_nome"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "932011f805a08d3d7ac3": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "96c8263f16e018218995": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "f23a8b2680656a0a27c2",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dim_cities"
+                        }
+                      },
+                      "Property": "municipio_uf"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "6ae5b22a58a11aed20d2",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "fact_trades"
+                        }
+                      },
+                      "Property": "Top N Municipios Exportacoes"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "clusteredBarChart",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "fact_trades"
+                        }
+                      },
+                      "Property": "Top N Municipios Exportacoes"
+                    }
+                  }
+                }
+              ],
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dim_cities"
+                        }
+                      },
+                      "Property": "municipio_uf"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "a0c9836656deabe1b06e": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "b0cf2ca853800c147bb9": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "9b4e854cd83b2c65e3c6",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dim_cities"
+                        }
+                      },
+                      "Property": "estado_nome"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dim_cities"
+                        }
+                      },
+                      "Property": "estado_nome"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "b5e58480740781880e66": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "d12868265b0a91962289": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "dc07c3c95ee7074d0345": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "f935cbdd32c1dec2988d": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          }
+        },
+        "visualContainerGroups": {
+          "eaf125695d0618ce83c0": {
+            "isHidden": false
+          }
+        }
+      }
+    },
+    "objects": {
+      "merge": {
+        "outspacePane": [
+          {
+            "properties": {
+              "expanded": {
+                "expr": {
+                  "Literal": {
+                    "Value": "false"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -418,5 +418,37 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "cb942e393760ecca8d5c",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "fact_trades"
+              }
+            },
+            "Property": "B - Maior Estado Exportacoes"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "23eb1fd5b0779c518b48",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "fact_trades"
+              }
+            },
+            "Property": "B - Maior Estado Importacoes"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }
