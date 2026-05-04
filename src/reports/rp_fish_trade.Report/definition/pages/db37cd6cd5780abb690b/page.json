@@ -46,5 +46,52 @@
         }
       }
     ]
-  }
+  },
+  "visualInteractions": [
+    {
+      "source": "09e6a6cddec6409bba6e",
+      "target": "3b50afea200310da39b4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "09e6a6cddec6409bba6e",
+      "target": "96c8263f16e018218995",
+      "type": "DataFilter"
+    },
+    {
+      "source": "09e6a6cddec6409bba6e",
+      "target": "6565e3dcee307ba4c150",
+      "type": "DataFilter"
+    },
+    {
+      "source": "3b50afea200310da39b4",
+      "target": "96c8263f16e018218995",
+      "type": "DataFilter"
+    },
+    {
+      "source": "3b50afea200310da39b4",
+      "target": "6565e3dcee307ba4c150",
+      "type": "DataFilter"
+    },
+    {
+      "source": "96c8263f16e018218995",
+      "target": "6565e3dcee307ba4c150",
+      "type": "DataFilter"
+    },
+    {
+      "source": "96c8263f16e018218995",
+      "target": "3b50afea200310da39b4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "6565e3dcee307ba4c150",
+      "target": "96c8263f16e018218995",
+      "type": "DataFilter"
+    },
+    {
+      "source": "6565e3dcee307ba4c150",
+      "target": "3b50afea200310da39b4",
+      "type": "DataFilter"
+    }
+  ]
 }
