@@ -1,0 +1,67 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "3cb93d8a01725b092ae0",
+  "displayName": "Parceiros Comerciais",
+  "displayOption": "FitToPage",
+  "height": 1080,
+  "width": 1920,
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "image": {
+            "image": {
+              "name": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'page_parceiros_comerciais.svg'"
+                  }
+                }
+              },
+              "url": {
+                "expr": {
+                  "ResourcePackageItem": {
+                    "PackageName": "RegisteredResources",
+                    "PackageType": 1,
+                    "ItemName": "page_parceiros_comerciais5166931998781438.svg"
+                  }
+                }
+              },
+              "scaling": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'Fit'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visualInteractions": [
+    {
+      "source": "747e5bd4948b668c2333",
+      "target": "a7428bba1020341ee956",
+      "type": "DataFilter"
+    },
+    {
+      "source": "d85ec5fa21b618b4614c",
+      "target": "a7428bba1020341ee956",
+      "type": "DataFilter"
+    },
+    {
+      "source": "9c0ee0fc68250dc6901c",
+      "target": "a7428bba1020341ee956",
+      "type": "DataFilter"
+    }
+  ]
+}

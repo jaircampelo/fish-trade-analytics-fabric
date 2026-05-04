@@ -11,11 +11,20 @@ table fact_trades
 		displayFolder: Medidas\01. Valor
 		lineageTag: e3acfd19-b42f-4f49-b5b0-019bcece6615
 
+		formatStringDefinition =
+				VAR __Valor = SELECTEDMEASURE()
+				VAR __Formato =
+				formatar_tipo_numero(__Valor)
+				RETURN
+				__Formato
+
 		changedProperty = Name
 
 		changedProperty = DisplayFolder
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		changedProperty = FormatString
+
+		changedProperty = FormatStringDefinition
 
 	measure '$ Importacoes' =
 			
@@ -26,21 +35,39 @@ table fact_trades
 		displayFolder: Medidas\01. Valor
 		lineageTag: 6f510ae0-80e6-4b50-a528-906171b75abd
 
+		formatStringDefinition =
+				VAR __Valor = SELECTEDMEASURE()
+				VAR __Formato =
+				formatar_tipo_numero(__Valor)
+				RETURN
+				__Formato
+
 		changedProperty = Name
 
 		changedProperty = DisplayFolder
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		changedProperty = FormatString
+
+		changedProperty = FormatStringDefinition
 
 	measure '$ Corrente' = [$ Exportacoes] + [$ Importacoes]
 		displayFolder: Medidas\01. Valor
 		lineageTag: dbff88c7-6556-4efa-bc97-b061601db1b6
 
+		formatStringDefinition =
+				VAR __Valor = SELECTEDMEASURE()
+				VAR __Formato =
+				formatar_tipo_numero(__Valor)
+				RETURN
+				__Formato
+
 		changedProperty = Name
 
 		changedProperty = DisplayFolder
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		changedProperty = FormatString
+
+		changedProperty = FormatStringDefinition
 
 	measure '# Peso Líquido Exportacoes' =
 			
@@ -140,6 +167,7 @@ table fact_trades
 			
 			RETURN
 			__Result
+		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: Medidas\03. Performance & Preço
 		lineageTag: e6f374ad-c436-4b14-a127-7803bdcf9c56
 
@@ -147,7 +175,7 @@ table fact_trades
 
 		changedProperty = Name
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		changedProperty = FormatString
 
 	measure '% Participacao no Total Importacoes' =
 			
@@ -161,6 +189,7 @@ table fact_trades
 			
 			RETURN
 			__Result
+		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: Medidas\03. Performance & Preço
 		lineageTag: 410c2d75-5b88-4fe1-a052-efb33de993e1
 
@@ -168,7 +197,7 @@ table fact_trades
 
 		changedProperty = Name
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		changedProperty = FormatString
 
 	measure '% Participacao no Total por Pais' =
 			
@@ -182,6 +211,7 @@ table fact_trades
 			
 			RETURN
 			__Result
+		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: Medidas\03. Performance & Preço
 		lineageTag: 72805aec-c358-4f7a-a04a-f5b19e620476
 
@@ -189,9 +219,10 @@ table fact_trades
 
 		changedProperty = Name
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		changedProperty = FormatString
 
 	measure '% Taxa de Cobertura' = DIVIDE([$ Exportacoes], [$ Importacoes])
+		formatString: 0.00%;-0.00%;0.00%
 		displayFolder: Medidas\03. Performance & Preço
 		lineageTag: 36738f99-f82d-4a8e-85f1-0c5dd9e1ce5a
 
@@ -199,17 +230,26 @@ table fact_trades
 
 		changedProperty = Name
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		changedProperty = FormatString
 
 	measure '$ Balanca Comercial' = [$ Exportacoes] - [$ Importacoes]
 		displayFolder: Medidas\03. Performance & Preço
 		lineageTag: f3be8740-43ce-44a7-a767-7682effcc9ee
 
+		formatStringDefinition =
+				VAR __Valor = SELECTEDMEASURE()
+				VAR __Formato =
+				formatar_tipo_numero(__Valor)
+				RETURN
+				__Formato
+
 		changedProperty = DisplayFolder
 
 		changedProperty = Name
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		changedProperty = FormatString
+
+		changedProperty = FormatStringDefinition
 
 	measure '$ Preco Medio por Quilo Exportacoes' = DIVIDE([$ Exportacoes], [# Peso Líquido Exportacoes])
 		displayFolder: Medidas\03. Performance & Preço
@@ -241,6 +281,7 @@ table fact_trades
 			RETURN
 			    SUMX(__TabelaShare, [@Share] ^ 2)
 			```
+		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: Medidas\03. Performance & Preço
 		lineageTag: f6ed5475-e1d7-421d-8f98-0fe1330be8bb
 
@@ -248,18 +289,19 @@ table fact_trades
 
 		changedProperty = Name
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		changedProperty = FormatString
 
 	measure '% HHI Estado Exportacoes' = ```
 			
 			VAR __TabelaShare = 
 			    ADDCOLUMNS(
-			        VALUES(dim_cities[municipio_nome]),
+			        VALUES(dim_cities[estado_nome]),
 			        "@Share", [% Participacao no Total Exportacoes]
 			    )
 			RETURN
 			    SUMX(__TabelaShare, [@Share] ^ 2)
 			```
+		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: Medidas\03. Performance & Preço
 		lineageTag: 78d4c0de-ed65-4be1-a813-daa457eecdac
 
@@ -267,18 +309,19 @@ table fact_trades
 
 		changedProperty = Name
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		changedProperty = FormatString
 
 	measure '% HHI Estado Importacoes' = ```
 			
 			VAR __TabelaShare = 
 			    ADDCOLUMNS(
-			        VALUES(dim_cities[municipio_nome]),
+			        VALUES(dim_cities[estado_nome]),
 			        "@Share", [% Participacao no Total Importacoes]
 			    )
 			RETURN
 			    SUMX(__TabelaShare, [@Share] ^ 2)
 			```
+		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: Medidas\03. Performance & Preço
 		lineageTag: c16c5e14-20a4-4116-a34f-52e6cfefdb2d
 
@@ -286,7 +329,7 @@ table fact_trades
 
 		changedProperty = Name
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		changedProperty = FormatString
 
 	measure 'Ranking % HHI Exportacoes por Estado' =
 			
@@ -350,6 +393,7 @@ table fact_trades
 			
 			RETURN
 			__ExpTopN
+		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: Medidas\04. Rankings
 		lineageTag: b56cd25c-4968-4742-84d2-c8ccd62ba1ac
 
@@ -357,7 +401,7 @@ table fact_trades
 
 		changedProperty = Name
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		changedProperty = FormatString
 
 	measure 'Top N % HHI Estado Exportacoes' =
 			
@@ -376,6 +420,7 @@ table fact_trades
 			
 			RETURN
 			__ExpTopN
+		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: Medidas\04. Rankings
 		lineageTag: b7e2e22a-5243-48a2-86a6-6320935016a9
 
@@ -383,7 +428,7 @@ table fact_trades
 
 		changedProperty = Name
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		changedProperty = FormatString
 
 	measure 'Top N % HHI Estado Importacoes' =
 			
@@ -402,6 +447,7 @@ table fact_trades
 			
 			RETURN
 			__ExpTopN
+		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: Medidas\04. Rankings
 		lineageTag: e2c4f1de-826c-4cce-92c9-ccc9d74e1170
 
@@ -409,7 +455,7 @@ table fact_trades
 
 		changedProperty = Name
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		changedProperty = FormatString
 
 	measure 'Top N Estados Exportacoes' =
 			
@@ -431,11 +477,20 @@ table fact_trades
 		displayFolder: Medidas\04. Rankings
 		lineageTag: 45accae2-6daa-45f6-aa06-e9d59238f04b
 
+		formatStringDefinition =
+				VAR __Valor = SELECTEDMEASURE()
+				VAR __Formato =
+				formatar_tipo_numero(__Valor)
+				RETURN
+				__Formato
+
 		changedProperty = DisplayFolder
 
 		changedProperty = Name
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		changedProperty = FormatString
+
+		changedProperty = FormatStringDefinition
 
 	measure 'Top N Market Share Exportacoes (por Corrente)' =
 			
@@ -454,6 +509,7 @@ table fact_trades
 			
 			RETURN
 			__Result
+		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: Medidas\04. Rankings
 		lineageTag: 5b3ed6dd-d6e3-445f-8c69-dd861de2120d
 
@@ -461,7 +517,7 @@ table fact_trades
 
 		changedProperty = Name
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		changedProperty = FormatString
 
 	measure 'Top N Market Share Importacoes (por Corrente)' =
 			
@@ -480,6 +536,7 @@ table fact_trades
 			
 			RETURN
 			__Result
+		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: Medidas\04. Rankings
 		lineageTag: eaaaa86c-1730-44f3-80c0-3608fe8462df
 
@@ -487,7 +544,7 @@ table fact_trades
 
 		changedProperty = Name
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		changedProperty = FormatString
 
 	measure 'Top N Municipios Exportacoes' =
 			
@@ -509,11 +566,20 @@ table fact_trades
 		displayFolder: Medidas\04. Rankings
 		lineageTag: 1261beef-5a67-4f3c-842c-75e42dbf0377
 
+		formatStringDefinition =
+				VAR __Valor = SELECTEDMEASURE()
+				VAR __Formato =
+				formatar_tipo_numero(__Valor)
+				RETURN
+				__Formato
+
 		changedProperty = DisplayFolder
 
 		changedProperty = Name
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		changedProperty = FormatString
+
+		changedProperty = FormatStringDefinition
 
 	measure 'Top N Municipios Importacoes' =
 			
@@ -535,19 +601,39 @@ table fact_trades
 		displayFolder: Medidas\04. Rankings
 		lineageTag: b073f7b8-81e8-4c39-b5a2-474493cbe1cd
 
+		formatStringDefinition =
+				VAR __Valor = SELECTEDMEASURE()
+				VAR __Formato =
+				formatar_tipo_numero(__Valor)
+				RETURN
+				__Formato
+
 		changedProperty = DisplayFolder
 
 		changedProperty = Name
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		changedProperty = FormatString
+
+		changedProperty = FormatStringDefinition
 
 	measure '$ Balança Comercial Real' = [$ Exportacoes Real] - [$ Importacoes Real]
 		displayFolder: Medidas\05. Valor Real
 		lineageTag: 3aebf097-d9bf-4a39-914f-b7742df5d2a1
 
+		formatStringDefinition =
+				VAR __Valor = SELECTEDMEASURE()
+				VAR __Formato =
+				formatar_tipo_numero(__Valor)
+				RETURN
+				__Formato
+
 		changedProperty = DisplayFolder
 
 		changedProperty = Name
+
+		changedProperty = FormatString
+
+		changedProperty = FormatStringDefinition
 
 	measure '$ Exportacoes Real' =
 			
@@ -558,11 +644,20 @@ table fact_trades
 		displayFolder: Medidas\05. Valor Real
 		lineageTag: d71f86d1-9e99-4986-b031-a80d9baeb879
 
+		formatStringDefinition =
+				VAR __Valor = SELECTEDMEASURE()
+				VAR __Formato =
+				formatar_tipo_numero(__Valor)
+				RETURN
+				__Formato
+
 		changedProperty = DisplayFolder
 
 		changedProperty = Name
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		changedProperty = FormatString
+
+		changedProperty = FormatStringDefinition
 
 	measure '$ Importacoes Real' =
 			
@@ -573,11 +668,20 @@ table fact_trades
 		displayFolder: Medidas\05. Valor Real
 		lineageTag: 2d08e6b8-bf6d-4eb2-b60d-3faea00e4a98
 
+		formatStringDefinition =
+				VAR __Valor = SELECTEDMEASURE()
+				VAR __Formato =
+				formatar_tipo_numero(__Valor)
+				RETURN
+				__Formato
+
 		changedProperty = DisplayFolder
 
 		changedProperty = Name
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		changedProperty = FormatString
+
+		changedProperty = FormatStringDefinition
 
 	measure '% Corrente YoY' =
 			
@@ -587,12 +691,15 @@ table fact_trades
 			
 			RETURN
 			__Result
+		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: Medidas\06. Time Intelligence
 		lineageTag: 47f54e06-b18f-4e60-bcff-02c3227505b8
 
 		changedProperty = DisplayFolder
 
 		changedProperty = Name
+
+		changedProperty = FormatString
 
 	measure '% Exportacoes YoY' =
 			
@@ -602,12 +709,15 @@ table fact_trades
 			
 			RETURN
 			__Result
+		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: Medidas\06. Time Intelligence
 		lineageTag: 6dd46e86-8dac-40cd-bc36-94a306129b21
 
 		changedProperty = DisplayFolder
 
 		changedProperty = Name
+
+		changedProperty = FormatString
 
 	measure '% Importacoes YoY' =
 			
@@ -617,12 +727,15 @@ table fact_trades
 			
 			RETURN
 			__Result
+		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: Medidas\06. Time Intelligence
 		lineageTag: a3c36c7d-5390-462c-8bcd-b8d2ee180343
 
 		changedProperty = DisplayFolder
 
 		changedProperty = Name
+
+		changedProperty = FormatString
 
 	measure '% Preco Medio por Quilo Exportacoes YoY' =
 			
@@ -632,6 +745,7 @@ table fact_trades
 			
 			RETURN
 			__Result
+		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: Medidas\06. Time Intelligence
 		lineageTag: a88ff00b-e896-4357-8cf3-f68f120b0b02
 
@@ -639,12 +753,15 @@ table fact_trades
 
 		changedProperty = Name
 
+		changedProperty = FormatString
+
 	measure '% Taxa de Cobertura LY' =
 			
 			CALCULATE(
 			    [% Taxa de Cobertura],
 			    SAMEPERIODLASTYEAR(dim_calendar[data])
 			)
+		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: Medidas\06. Time Intelligence
 		lineageTag: 1b5465ed-ac3d-4512-aa9d-45ea8f97e48b
 
@@ -652,7 +769,7 @@ table fact_trades
 
 		changedProperty = Name
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		changedProperty = FormatString
 
 	measure '$ Balanca Comercial LY' =
 			
@@ -663,21 +780,39 @@ table fact_trades
 		displayFolder: Medidas\06. Time Intelligence
 		lineageTag: 17d707cf-e668-4e31-a205-d7e3249a8586
 
+		formatStringDefinition =
+				VAR __Valor = SELECTEDMEASURE()
+				VAR __Formato =
+				formatar_tipo_numero(__Valor)
+				RETURN
+				__Formato
+
 		changedProperty = DisplayFolder
 
 		changedProperty = Name
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		changedProperty = FormatString
+
+		changedProperty = FormatStringDefinition
 
 	measure '$ Balanca Comercial YoY' = [$ Balanca Comercial] - [$ Balanca Comercial LY]
 		displayFolder: Medidas\06. Time Intelligence
 		lineageTag: 27bdc8b8-8078-4599-90f2-37557b8dce15
 
+		formatStringDefinition =
+				VAR __Valor = SELECTEDMEASURE()
+				VAR __Formato =
+				formatar_tipo_numero(__Valor)
+				RETURN
+				__Formato
+
 		changedProperty = DisplayFolder
 
 		changedProperty = Name
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		changedProperty = FormatString
+
+		changedProperty = FormatStringDefinition
 
 	measure '$ Corrente LY' =
 			
@@ -688,11 +823,20 @@ table fact_trades
 		displayFolder: Medidas\06. Time Intelligence
 		lineageTag: 5ba26d81-5630-47e1-864d-3504d9b07207
 
+		formatStringDefinition =
+				VAR __Valor = SELECTEDMEASURE()
+				VAR __Formato =
+				formatar_tipo_numero(__Valor)
+				RETURN
+				__Formato
+
 		changedProperty = DisplayFolder
 
 		changedProperty = Name
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		changedProperty = FormatString
+
+		changedProperty = FormatStringDefinition
 
 	measure '$ Exportacoes Acc' =
 			
@@ -703,11 +847,20 @@ table fact_trades
 		displayFolder: Medidas\06. Time Intelligence
 		lineageTag: 425223ed-3417-4c48-a7a8-73978b8f733a
 
+		formatStringDefinition =
+				VAR __Valor = SELECTEDMEASURE()
+				VAR __Formato =
+				formatar_tipo_numero(__Valor)
+				RETURN
+				__Formato
+
 		changedProperty = DisplayFolder
 
 		changedProperty = Name
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		changedProperty = FormatString
+
+		changedProperty = FormatStringDefinition
 
 	measure '$ Importacoes Acc' =
 			
@@ -718,11 +871,20 @@ table fact_trades
 		displayFolder: Medidas\06. Time Intelligence
 		lineageTag: 02e051ad-06ba-4fd7-a3e8-ec7d50d8ddfb
 
+		formatStringDefinition =
+				VAR __Valor = SELECTEDMEASURE()
+				VAR __Formato =
+				formatar_tipo_numero(__Valor)
+				RETURN
+				__Formato
+
 		changedProperty = DisplayFolder
 
 		changedProperty = Name
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		changedProperty = FormatString
+
+		changedProperty = FormatStringDefinition
 
 	measure '$ Exportacoes LY' =
 			
@@ -733,11 +895,20 @@ table fact_trades
 		displayFolder: Medidas\06. Time Intelligence
 		lineageTag: aa75a49e-eb81-4081-aab6-e3461c2f751b
 
+		formatStringDefinition =
+				VAR __Valor = SELECTEDMEASURE()
+				VAR __Formato =
+				formatar_tipo_numero(__Valor)
+				RETURN
+				__Formato
+
 		changedProperty = DisplayFolder
 
 		changedProperty = Name
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		changedProperty = FormatString
+
+		changedProperty = FormatStringDefinition
 
 	measure '$ Importacoes LY' =
 			
@@ -748,11 +919,20 @@ table fact_trades
 		displayFolder: Medidas\06. Time Intelligence
 		lineageTag: f116bbab-0813-4522-b0dd-59b2f25b2c8e
 
+		formatStringDefinition =
+				VAR __Valor = SELECTEDMEASURE()
+				VAR __Formato =
+				formatar_tipo_numero(__Valor)
+				RETURN
+				__Formato
+
 		changedProperty = DisplayFolder
 
 		changedProperty = Name
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		changedProperty = FormatString
+
+		changedProperty = FormatStringDefinition
 
 	measure '$ Preco Medio por Quilo Exportacoes LY' =
 			
@@ -2198,6 +2378,7 @@ table fact_trades
 		changedProperty = Name
 
 	measure 'PC - Top N Market Share Exportacoes Positivo' = [Top N Market Share Exportacoes (por Corrente)]
+		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: Medidas\07. Storytelling
 		lineageTag: dad50434-c9d0-4bed-8152-1827ace2fd78
 
@@ -2205,9 +2386,10 @@ table fact_trades
 
 		changedProperty = Name
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		changedProperty = FormatString
 
 	measure 'PC - Top N Market Share Importacoes Negativo' = - [Top N Market Share Importacoes (por Corrente)]
+		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: Medidas\07. Storytelling
 		lineageTag: 15bc1e42-8668-4122-aeeb-379ac98f51b5
 
@@ -2215,7 +2397,7 @@ table fact_trades
 
 		changedProperty = Name
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		changedProperty = FormatString
 
 	measure 'VG - Rotulo Taxa de Cobertura YoY' =
 			
@@ -2424,7 +2606,7 @@ table fact_trades
 			CONCATENATEX(__MaxData, dim_calendar[mes_ano_nome])
 			
 			VAR __FormatMax =
-			formatar_numero(__MaxDataEscalar)
+			formatar_numero(__MaxImp)
 			
 			VAR __Texto =
 			"O Brasil se destaca como um importador líquido de pescado, atingindo a máxima histórica de "

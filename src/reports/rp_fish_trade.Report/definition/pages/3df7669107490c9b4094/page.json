@@ -1,0 +1,82 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "3df7669107490c9b4094",
+  "displayName": "Visão Geral",
+  "displayOption": "FitToPage",
+  "height": 1080,
+  "width": 1920,
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "image": {
+            "image": {
+              "name": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'page_visao_geral.svg'"
+                  }
+                }
+              },
+              "url": {
+                "expr": {
+                  "ResourcePackageItem": {
+                    "PackageName": "RegisteredResources",
+                    "PackageType": 1,
+                    "ItemName": "page_visao_geral7840269708153986.svg"
+                  }
+                }
+              },
+              "scaling": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'Fit'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visualInteractions": [
+    {
+      "source": "459e064315b0b4971d69",
+      "target": "f9607f3f0a67a612d56d",
+      "type": "DataFilter"
+    },
+    {
+      "source": "459e064315b0b4971d69",
+      "target": "318e593c229cd00e3ba0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "f9607f3f0a67a612d56d",
+      "target": "459e064315b0b4971d69",
+      "type": "DataFilter"
+    },
+    {
+      "source": "f9607f3f0a67a612d56d",
+      "target": "318e593c229cd00e3ba0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "318e593c229cd00e3ba0",
+      "target": "f9607f3f0a67a612d56d",
+      "type": "DataFilter"
+    },
+    {
+      "source": "318e593c229cd00e3ba0",
+      "target": "459e064315b0b4971d69",
+      "type": "DataFilter"
+    }
+  ]
+}
