@@ -2,8 +2,8 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definitionProperties/2.0.0/schema.json",
   "version": "4.0",
   "datasetReference": {
-    "byConnection": {
-      "connectionString": "Data Source=powerbi://api.powerbi.com/v1.0/myorg/fish_trade-DEV;initial catalog=sm_fish_trade;access mode=readonly;integrated security=ClaimsToken;semanticmodelid=5518df82-1db3-4243-835b-b33a99462004"
+    "byPath": {
+      "path": "../sm_fish_trade.SemanticModel"
     }
   }
 }
