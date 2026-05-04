@@ -10,7 +10,7 @@ annotation PBI_QueryOrder = ["DirectLake - lh_fish_trade"]
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
-annotation PBI_ProTooling = ["RemoteModeling","DirectLakeOnOneLakeCreatedInDesktop","TMDLView_Desktop"]
+annotation PBI_ProTooling = ["RemoteModeling","DirectLakeOnOneLakeCreatedInDesktop","TMDLView_Desktop","DaxQueryView_Desktop"]
 
 ref table dim_calendar
 ref table dim_cities

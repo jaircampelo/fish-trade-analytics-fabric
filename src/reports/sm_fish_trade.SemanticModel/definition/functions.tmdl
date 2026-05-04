@@ -1,6 +1,6 @@
 function formatar_numero =
 		(
-				valor : NUMERIC
+				valor : DECIMAL
 			) =>
 				SWITCH(
 					TRUE(),
@@ -10,4 +10,17 @@ function formatar_numero =
 					FORMAT(valor, "#0")
 				)
 	lineageTag: 2f1eb8bb-f6fb-4070-b511-733a725e4944
+
+function formatar_tipo_numero =
+		(
+				valor : DECIMAL
+			) =>
+				SWITCH(
+					TRUE(),
+					ABS(valor) > 1000000000, "#0,,,.00 Bi",
+					ABS(valor) > 1000000, "#0,,.00 Mi",
+					ABS(valor) > 1000, "#0,.00 K",
+					"#0"
+				)
+	lineageTag: d864dab9-e2a6-4185-b339-32231fd6dc14
 

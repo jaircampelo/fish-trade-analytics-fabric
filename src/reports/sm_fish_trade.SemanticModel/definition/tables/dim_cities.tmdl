@@ -24,8 +24,11 @@ table dim_cities
 		dataType: string
 		lineageTag: 169d0324-adf1-4e36-90c7-f0c9c1b0c536
 		sourceLineageTag: estado_nome
+		dataCategory: StateOrProvince
 		summarizeBy: none
 		sourceColumn: estado_nome
+
+		changedProperty = DataCategory
 
 		annotation SummarizationSetBy = Automatic
 
@@ -33,8 +36,11 @@ table dim_cities
 		dataType: string
 		lineageTag: 8d1c2a79-83a5-45ef-988a-22346aaa9cc6
 		sourceLineageTag: uf
+		dataCategory: StateOrProvince
 		summarizeBy: none
 		sourceColumn: uf
+
+		changedProperty = DataCategory
 
 		annotation SummarizationSetBy = Automatic
 
